@@ -39,24 +39,23 @@ public class LinkedList {
     }
 
     public boolean remove(int _value) {
-        if (this.head == null)
-            return false;
-        if (this.head.value == _value) {
-            this.head = null;
-            return true;
-        }
-        if (this.head.next == null)
+        if (this.head == null || this.tail == null)
             return false;
 
-        Node prevNode = this.head;
-        Node curNode = this.head.next;
+        Node curNode = this.head;
+        Node prevNode = null;
 
         while (curNode != null) {
             if (curNode.value == _value) {
-                if (curNode == tail) {
-                    tail = prevNode;
+                if (this.tail == curNode) {
+                    this.tail = prevNode;
                 }
-                prevNode.next = curNode.next;
+                if (this.head == curNode) {
+                    this.head = curNode.next;
+                }
+                if (prevNode != null) {
+                    prevNode.next = curNode.next;
+                }
                 return true;
             }
             prevNode = curNode;
