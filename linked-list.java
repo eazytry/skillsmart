@@ -53,13 +53,16 @@ public class LinkedList {
 
         while (curNode != null) {
             if (curNode.value == _value) {
+                if (curNode == tail) {
+                    tail = prevNode;
+                }
                 prevNode.next = curNode.next;
                 return true;
             }
             prevNode = curNode;
             curNode = curNode.next;
         }
-        return false; // если узел был удалён
+        return false;
     }
 
     public void removeAll(int _value) {
@@ -88,9 +91,14 @@ public class LinkedList {
             _nodeToInsert.next = this.head;
             this.head = _nodeToInsert;
         } else {
-            Node node = _nodeAfter.next;
-            _nodeAfter.next = _nodeToInsert;
-            _nodeToInsert.next = node;
+            if (_nodeAfter == this.tail) {
+                this.tail.next = _nodeToInsert;
+                this.tail = _nodeToInsert;
+            } else {
+                Node node = _nodeAfter.next;
+                _nodeAfter.next = _nodeToInsert;
+                _nodeToInsert.next = node;
+            }
         }
         // здесь будет ваш код вставки узла после заданного
 
