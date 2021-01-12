@@ -93,10 +93,11 @@ public class LinkedList2 {
             if (count() == 0) {
                 this.head = _nodeToInsert;
                 this.tail = _nodeToInsert;
+            } else {
+                this.head.prev = _nodeToInsert;
+                _nodeToInsert.next = this.head;
+                this.head = _nodeToInsert;
             }
-            this.head.prev = _nodeToInsert;
-            _nodeToInsert.next = this.head;
-            this.head = _nodeToInsert;
         } else {
             if (_nodeAfter.next != null) {
                 _nodeAfter.next.prev = _nodeToInsert;
