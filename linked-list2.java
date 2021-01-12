@@ -54,8 +54,12 @@ public class LinkedList2 {
             return false;
         if (foundNode.prev != null)
             foundNode.prev.next = foundNode.next;
+        else
+            this.head = foundNode.next;
         if (foundNode.next != null)
             foundNode.next.prev = foundNode.prev;
+        else
+            this.tail = foundNode.prev;
         return true; // если узел был удалён
     }
 
