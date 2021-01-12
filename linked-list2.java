@@ -101,8 +101,10 @@ public class LinkedList2 {
         } else {
             if (_nodeAfter.next != null) {
                 _nodeAfter.next.prev = _nodeToInsert;
+                _nodeToInsert.next = _nodeAfter.next;
+            } else {
+                this.tail = _nodeToInsert;
             }
-            _nodeToInsert.next = _nodeAfter.next;
             _nodeToInsert.prev = _nodeAfter;
             _nodeAfter.next = _nodeToInsert;
             // если _nodeAfter = null
