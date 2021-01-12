@@ -38,7 +38,7 @@ public class LinkedList2 {
         if (count() == 0)
             return nodes;
         Node curNode = this.head;
-        while (curNode.next != null) {
+        while (curNode != null) {
             if (curNode.value == _value)
                 nodes.add(curNode);
             curNode = curNode.next;
