@@ -1,3 +1,5 @@
+package dataStructures.linkedList;
+
 import java.util.*;
 
 public class LinkedList {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ArrayListTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2021-02-04T15:20:32" hostname="AGFOMICHEV-NB" time="0.014">
+  <properties/>
+  <testcase name="remove_IndexAroundTheMiddle" classname="ArrayListTest" time="0.008"/>
+  <testcase name="remove_ArrayIsEmpty" classname="ArrayListTest" time="0.0"/>
+  <testcase name="insert_EmptyArray" classname="ArrayListTest" time="0.0"/>
+  <testcase name="append_ArrayIsEmpty" classname="ArrayListTest" time="0.0"/>
+  <testcase name="insert_IndexLessThanZero_ThrowRuntimeException" classname="ArrayListTest" time="0.0"/>
+  <testcase name="append_BufferIsFull" classname="ArrayListTest" time="0.0"/>
+  <testcase name="remove_IndexIsZero" classname="ArrayListTest" time="0.0"/>
+  <testcase name="getItem_IndexLessThanZero_ThrowRuntimeException" classname="ArrayListTest" time="0.0"/>
+  <testcase name="insert_IndexIsOutOfBuffer_ThrowRuntimeException" classname="ArrayListTest" time="0.0"/>
+  <testcase name="insert_NotEmptyArray" classname="ArrayListTest" time="0.001"/>
+  <testcase name="remove_BufferIsMoreThanCountOverFiftyPercents" classname="ArrayListTest" time="0.0"/>
+  <testcase name="insert_IndexIsOutOfBound_ThrowRuntimeException" classname="ArrayListTest" time="0.0"/>
+  <testcase name="testCreateNewArray" classname="ArrayListTest" time="0.0"/>
+  <testcase name="remove_IndexIsEndOfArray" classname="ArrayListTest" time="0.0"/>
+  <testcase name="remove_IndexIsOutOfBound" classname="ArrayListTest" time="0.0"/>
+  <testcase name="insert_BufferIsFull" classname="ArrayListTest" time="0.001"/>
+  <testcase name="append_IndexIsOutOfBound_ThrowRuntimeException" classname="ArrayListTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

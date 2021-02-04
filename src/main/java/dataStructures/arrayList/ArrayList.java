@@ -1,13 +1,15 @@
+package dataStructures.arrayList;
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class DynArray<T> {
+public class ArrayList<T> {
     public T[] array;
     public int count;
     public int capacity;
-    Class clazz;
+    public Class clazz;
 
-    public DynArray(Class clz) {
+    public ArrayList(Class clz) {
         clazz = clz; // нужен для безопасного приведения типов
         count = 0;
         makeArray(16);
