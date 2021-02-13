@@ -6,3 +6,6 @@ dataStructures/arrayList/ArrayList.java
 dataStructures/linkedList2/LinkedList2.java
  dataStructures.linkedList2.LinkedList2
  dataStructures.linkedList2.LinkedList2$Node
+dataStructures/stack/Stack.java
+ dataStructures.stack.Stack
+ dataStructures.stack.Stack$Node
