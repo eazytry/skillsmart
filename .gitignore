@@ -1,7 +1,6 @@
 /.idea/
 /.gradle/
-/gradle/
-/gradlew/
+/.gradlew/
 /gradlew.bat/
-/build/
+/.build*/
 /skillsmart.iml/
