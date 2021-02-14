@@ -38,8 +38,8 @@ public class StackTest {
         stringStack.push(secondString);
 
         assertEquals(2, stringStack.size());
-        assertEquals(firstString, stringStack.head.t);
-        assertEquals(secondString, stringStack.tail.t);
+        assertEquals(secondString, stringStack.head.t);
+        assertEquals(firstString, stringStack.tail.t);
         assertEquals(stringStack.head.nextNode, stringStack.tail);
         assertNull(stringStack.tail.nextNode);
     }
@@ -56,8 +56,8 @@ public class StackTest {
         stringStack.push(thirdString);
 
         assertEquals(3, stringStack.size());
-        assertEquals(firstString, stringStack.head.t);
-        assertEquals(thirdString, stringStack.tail.t);
+        assertEquals(thirdString, stringStack.head.t);
+        assertEquals(firstString, stringStack.tail.t);
         assertEquals(stringStack.head.nextNode.t, secondString);
         assertNull(stringStack.tail.nextNode);
     }
@@ -94,14 +94,16 @@ public class StackTest {
 
         String firstVal = "11";
         String secondVal = "12";
+
         stringStack.push(firstVal);
         stringStack.push(secondVal);
+
         String actualVal = stringStack.pop();
 
         assertEquals(1, stringStack.size());
-        assertEquals(firstVal, actualVal);
-        assertEquals(secondVal, stringStack.head.getT());
-        assertEquals(secondVal, stringStack.tail.getT());
+        assertEquals(secondVal, actualVal);
+        assertEquals(firstVal, stringStack.head.getT());
+        assertEquals(firstVal, stringStack.tail.getT());
     }
 
     @Test
@@ -111,15 +113,17 @@ public class StackTest {
         String firstVal = "11";
         String secondVal = "12";
         String thirdVal = "12";
+
         stringStack.push(firstVal);
         stringStack.push(secondVal);
         stringStack.push(thirdVal);
+
         String actualVal = stringStack.pop();
 
         assertEquals(2, stringStack.size());
-        assertEquals(firstVal, actualVal);
+        assertEquals(thirdVal, actualVal);
         assertEquals(secondVal, stringStack.head.getT());
-        assertEquals(thirdVal, stringStack.tail.getT());
+        assertEquals(firstVal, stringStack.tail.getT());
         assertEquals(stringStack.head.nextNode, stringStack.tail);
         assertNull(stringStack.tail.nextNode);
     }
@@ -139,9 +143,9 @@ public class StackTest {
 
         String expectedVal = "123";
 
-        stringStack.push(expectedVal);
         stringStack.push("fff");
         stringStack.push("432432");
+        stringStack.push(expectedVal);
 
         String actualVal = "";
 

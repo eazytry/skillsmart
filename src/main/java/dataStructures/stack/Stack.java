@@ -32,14 +32,9 @@ public class Stack<T> {
     public void push(T val) {
         Node<T> node = new Node<>(val);
         if (count == 0)
-            this.head = node;
-        else if (count == 1) {
-            this.head.nextNode = node;
-        }
-        else {
-            this.tail.nextNode = node;
-        }
-        this.tail = node;
+            this.tail = node;
+        node.nextNode = this.head;
+        this.head = node;
         count++;
     }
 
