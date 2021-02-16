@@ -3,8 +3,8 @@ package dataStructures.queue;
 import java.util.Stack;
 
 public class Queue<T> {
-    private Stack<T> firstStack;
-    private Stack<T> secondStack;
+    private final Stack<T> firstStack;
+    private final Stack<T> secondStack;
     private int size;
 
     public Queue() {
