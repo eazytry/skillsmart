@@ -1,4 +1,4 @@
-import dataStructures.deque.Deque;
+import data_structures.deque.Deque;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 

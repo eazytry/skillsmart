@@ -1,4 +1,4 @@
-import dataStructures.stack.Stack;
+import data_structures.stack.Stack;
 
 public class Main {
     public static void main(String[] args) {

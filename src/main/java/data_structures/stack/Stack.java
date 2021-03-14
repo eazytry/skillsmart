@@ -1,4 +1,4 @@
-package dataStructures.stack;
+package data_structures.stack;
 
 public class Stack<T> {
     public Node<T> head;

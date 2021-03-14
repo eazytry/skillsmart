@@ -1,4 +1,4 @@
-package dataStructures.linkedList2;
+package data_structures.linked_list_2;
 
 import java.util.*;
 

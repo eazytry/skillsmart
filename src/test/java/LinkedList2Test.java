@@ -1,6 +1,6 @@
-import dataStructures.linkedList2.LinkedList2;
+import data_structures.linked_list_2.LinkedList2;
 import org.junit.jupiter.api.Test;
-import dataStructures.linkedList2.LinkedList2.Node;
+import data_structures.linked_list_2.LinkedList2.Node;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-import dataStructures.arrayList.ArrayList;
+import data_structures.array_list.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;

@@ -1,4 +1,4 @@
-package dataStructures.deque;
+package data_structures.deque;
 
 public class Deque<T> {
     private Node<T> head;

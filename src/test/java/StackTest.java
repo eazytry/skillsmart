@@ -1,4 +1,4 @@
-import dataStructures.stack.Stack;
+import data_structures.stack.Stack;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

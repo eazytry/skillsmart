@@ -1,24 +1,13 @@
-package dataStructures.orderedList;
+package data_structures.ordered_list;
 
 import java.util.ArrayList;
 
 
-class Node<T> {
-    public T value;
-    public Node<T> next, prev;
-
-    public Node(T _value) {
-        value = _value;
-        next = null;
-        prev = null;
-    }
-}
 public class OrderedList<T> {
-
     public Node<T> head, tail;
+
     private boolean _ascending;
     private int size;
-
     public OrderedList(boolean asc) {
         head = null;
         tail = null;
@@ -190,5 +179,16 @@ public class OrderedList<T> {
             node = node.next;
         }
         return r;
+    }
+
+    public static class Node<T> {
+        public T value;
+        public Node<T> next, prev;
+
+        public Node(T _value) {
+            value = _value;
+            next = null;
+            prev = null;
+        }
     }
 }

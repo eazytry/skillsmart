@@ -1,5 +1,5 @@
-import dataStructures.orderedList.OrderedList;
-import dataStructures.orderedList.OrderedList.Node;
+import data_structures.ordered_list.OrderedList;
+import data_structures.ordered_list.OrderedList.Node;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
