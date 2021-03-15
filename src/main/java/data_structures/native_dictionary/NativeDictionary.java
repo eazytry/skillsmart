@@ -25,6 +25,8 @@ public class NativeDictionary<T> {
     public boolean isKey(String key) {
         // возвращает true если ключ имеется,
         // иначе false
+        if (key == null)
+            return false;
         return Arrays.stream(getKeySearchIndexSequence(key, hashFun(key)))
                 .filter(i -> slots[i] != null && slots[i].equals(key))
                 .findFirst()
