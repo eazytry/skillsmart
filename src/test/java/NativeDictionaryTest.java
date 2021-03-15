@@ -10,6 +10,16 @@ public class NativeDictionaryTest {
         Assertions.assertThat(nativeDictionary.isKey("1")).isFalse();
     }
 
+
+    @Test
+    public void isKey_When_notContainsInNotEmpty() {
+        NativeDictionary<String> nativeDictionary = new NativeDictionary<>(10, String.class);
+
+        nativeDictionary.put("3", "123");
+
+        Assertions.assertThat(nativeDictionary.isKey("1")).isFalse();
+    }
+
     @Test
     public void isKey_When_contains() {
         NativeDictionary<String> nativeDictionary = new NativeDictionary<>(10, String.class);

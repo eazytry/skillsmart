@@ -3,7 +3,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 public class HashTableTest {
-    @Test public void hashFun_Test() {
+    @Test
+    public void hashFun_Test() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -14,7 +15,8 @@ public class HashTableTest {
         Assertions.assertThat(actualValue).isEqualTo(expectedValue);
     }
 
-    @Test public void seekSlot_When_noCollision() {
+    @Test
+    public void seekSlot_When_noCollision() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -25,7 +27,8 @@ public class HashTableTest {
         Assertions.assertThat(actualValue).isEqualTo(expectedValue);
     }
 
-    @Test public void seekSlot_When_oneCollision() {
+    @Test
+    public void seekSlot_When_oneCollision() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -38,7 +41,8 @@ public class HashTableTest {
         Assertions.assertThat(actualValue).isEqualTo(expectedValue);
     }
 
-    @Test public void seekSlot_When_manyCollisions() {
+    @Test
+    public void seekSlot_When_manyCollisions() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -53,7 +57,8 @@ public class HashTableTest {
         Assertions.assertThat(actualValue).isEqualTo(expectedValue);
     }
 
-    @Test public void seekSlot_When_noFreeSlot() {
+    @Test
+    public void seekSlot_When_noFreeSlot() {
         HashTable hashTable = new HashTable(3, 1);
 
         String testString = "123";
@@ -69,7 +74,8 @@ public class HashTableTest {
         Assertions.assertThat(actualValue).isEqualTo(expectedValue);
     }
 
-    @Test public void put_When_isEmpty() {
+    @Test
+    public void put_When_isEmpty() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -79,7 +85,8 @@ public class HashTableTest {
         Assertions.assertThat(hashTable.slots[12]).isEqualTo(testString);
     }
 
-    @Test public void put_When_oneCollision() {
+    @Test
+    public void put_When_oneCollision() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -91,7 +98,8 @@ public class HashTableTest {
         Assertions.assertThat(hashTable.slots[15]).isEqualTo(testString);
     }
 
-    @Test public void put_When_manyCollisions() {
+    @Test
+    public void put_When_manyCollisions() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -107,7 +115,8 @@ public class HashTableTest {
         Assertions.assertThat(hashTable.slots[2]).isEqualTo(testString);
     }
 
-    @Test public void put_When_noFreeSlot() {
+    @Test
+    public void put_When_noFreeSlot() {
         HashTable hashTable = new HashTable(3, 1);
 
         String testString = "123";
@@ -123,7 +132,8 @@ public class HashTableTest {
         Assertions.assertThat(actualValue).isEqualTo(-1);
     }
 
-    @Test public void find_When_noCollision() {
+    @Test
+    public void find_When_noCollision() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -135,7 +145,8 @@ public class HashTableTest {
         Assertions.assertThat(actualValue).isEqualTo(12);
     }
 
-    @Test public void find_When_noSuchElement() {
+    @Test
+    public void find_When_noSuchElement() {
         HashTable hashTable = new HashTable(19, 3);
 
         String testString = "123";
@@ -147,7 +158,8 @@ public class HashTableTest {
         Assertions.assertThat(actualValue).isEqualTo(-1);
     }
 
-    @Test public void find_When_manyCollisions() {
+    @Test
+    public void find_When_manyCollisions() {
         HashTable hashTable = new HashTable(7, 2);
 
         String testString = "123";
