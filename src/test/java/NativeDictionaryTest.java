@@ -21,6 +21,15 @@ public class NativeDictionaryTest {
     }
 
     @Test
+    public void isKey_When_integerKeyNotContainsInNotEmpty() {
+        NativeDictionary<Integer> nativeDictionary = new NativeDictionary<>(10, Integer.class);
+
+        nativeDictionary.put("1", 2);
+
+        Assertions.assertThat(nativeDictionary.isKey("3")).isFalse();
+    }
+
+    @Test
     public void isKey_When_contains() {
         NativeDictionary<String> nativeDictionary = new NativeDictionary<>(10, String.class);
 
