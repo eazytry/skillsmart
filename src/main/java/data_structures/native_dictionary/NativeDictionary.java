@@ -19,7 +19,7 @@ public class NativeDictionary<T> {
 
     public int hashFun(String key) {
         // всегда возвращает корректный индекс слота
-        return Math.abs(hashCode()) % size;
+        return Math.abs(key.hashCode()) % size;
     }
 
     public boolean isKey(String key) {
@@ -27,8 +27,6 @@ public class NativeDictionary<T> {
         // иначе false
         if (key == null)
             return false;
-        int index = hashFun(key);
-        int[] keySearchIndexSequence = getKeySearchIndexSequence(hashFun(key));
         return Arrays.stream(getKeySearchIndexSequence(hashFun(key)))
                 .filter(i -> slots[i] != null && slots[i].equals(key))
                 .findFirst()
@@ -38,16 +36,12 @@ public class NativeDictionary<T> {
     public void put(String key, T value) {
         // гарантированно записываем
         // значение value по ключу key
-        int index = hashFun(key);
-        int[] range = getKeySearchIndexSequence(hashFun(key));
         Arrays.stream(getKeySearchIndexSequence(hashFun(key)))
-                .filter(i -> slots[i] == null)
+                .filter(i -> key.equals(slots[i]) || slots[i] == null)
                 .findFirst()
                 .ifPresent(i -> {
                     slots[i] = key;
                     values[i] = value;
-                    System.out.println(slots[i]);
-                    System.out.println(values[i]);
                 });
     }
 
