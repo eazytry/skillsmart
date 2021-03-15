@@ -3,13 +3,13 @@ package data_structures.native_dictionary;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.OptionalInt;
-import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
 public class NativeDictionary<T> {
     public int size;
-    public String[] slots;
-    public T[] values;
+    public volatile String[] slots;
+    public volatile T[] values;
+
 
     public NativeDictionary(int sz, Class clazz) {
         size = sz;
@@ -19,7 +19,7 @@ public class NativeDictionary<T> {
 
     public int hashFun(String key) {
         // всегда возвращает корректный индекс слота
-        return key.hashCode() % size;
+        return Math.abs(hashCode()) % size;
     }
 
     public boolean isKey(String key) {
@@ -27,7 +27,9 @@ public class NativeDictionary<T> {
         // иначе false
         if (key == null)
             return false;
-        return Arrays.stream(getKeySearchIndexSequence(key, hashFun(key)))
+        int index = hashFun(key);
+        int[] keySearchIndexSequence = getKeySearchIndexSequence(hashFun(key));
+        return Arrays.stream(getKeySearchIndexSequence(hashFun(key)))
                 .filter(i -> slots[i] != null && slots[i].equals(key))
                 .findFirst()
                 .isPresent();
@@ -36,40 +38,27 @@ public class NativeDictionary<T> {
     public void put(String key, T value) {
         // гарантированно записываем
         // значение value по ключу key
-        Arrays.stream(getKeySearchIndexSequence(key, hashFun(key)))
+        int index = hashFun(key);
+        int[] range = getKeySearchIndexSequence(hashFun(key));
+        Arrays.stream(getKeySearchIndexSequence(hashFun(key)))
                 .filter(i -> slots[i] == null)
                 .findFirst()
-                .ifPresent(new PutConsumer(slots, values, key, value));
+                .ifPresent(i -> {
+                    slots[i] = key;
+                    values[i] = value;
+                    System.out.println(slots[i]);
+                    System.out.println(values[i]);
+                });
     }
 
     public T get(String key) {
-        OptionalInt foundKeyOpt = Arrays.stream(getKeySearchIndexSequence(key, hashFun(key)))
+        OptionalInt foundKeyOpt = Arrays.stream(getKeySearchIndexSequence(hashFun(key)))
                 .filter(i -> slots[i] != null && slots[i].equals(key))
                 .findFirst();
         return foundKeyOpt.isPresent() ? values[foundKeyOpt.getAsInt()] : null;
     }
 
-    private int[] getKeySearchIndexSequence(String key, int index) {
+    private int[] getKeySearchIndexSequence(int index) {
         return IntStream.concat(IntStream.range(index, size), IntStream.range(0, index)).toArray();
-    }
-
-    class PutConsumer implements IntConsumer {
-        private final String[] slots;
-        private final T[] values;
-        private final String key;
-        private final T value;
-
-        public PutConsumer(String[] slots, T[] values, String key, T value) {
-            this.slots = slots;
-            this.values = values;
-            this.key = key;
-            this.value = value;
-        }
-
-        @Override
-        public void accept(int value) {
-            this.slots[value] = this.key;
-            this.values[value] = this.value;
-        }
     }
 }

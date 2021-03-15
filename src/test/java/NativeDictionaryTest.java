@@ -22,11 +22,9 @@ public class NativeDictionaryTest {
 
     @Test
     public void isKey_When_integerKeyNotContainsInNotEmpty() {
-        NativeDictionary<Integer> nativeDictionary = new NativeDictionary<>(10, Integer.class);
-
-        nativeDictionary.put("1", 2);
-
-        Assertions.assertThat(nativeDictionary.isKey("3")).isFalse();
+        NativeDictionary<Integer> nd = new NativeDictionary<Integer>(97, Integer.class);
+        nd.put("0123456789", 123456789);
+        nd.isKey("1234567890");
     }
 
     @Test
@@ -68,12 +66,13 @@ public class NativeDictionaryTest {
         String expectedKey = "1";
         String collisionExpectedKey = "3";
         String expectedValue = "123";
+
         nativeDictionary.put(expectedKey, expectedValue);
         nativeDictionary.put(collisionExpectedKey, expectedValue);
 
+        Assertions.assertThat(nativeDictionary.slots[0]).isEqualTo(expectedKey);
         Assertions.assertThat(nativeDictionary.values[0]).isEqualTo(expectedValue);
-        Assertions.assertThat(nativeDictionary.slots[0]).isEqualTo(collisionExpectedKey);
-        Assertions.assertThat(nativeDictionary.slots[1]).isEqualTo(expectedKey);
+        Assertions.assertThat(nativeDictionary.slots[1]).isEqualTo(collisionExpectedKey);
         Assertions.assertThat(nativeDictionary.values[1]).isEqualTo(expectedValue);
     }
 }
