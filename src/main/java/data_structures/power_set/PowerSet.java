@@ -18,7 +18,7 @@ public class PowerSet {
 
     private PowerSet(Object[] values) {
         initDefaultFields();
-        for (Object val : values)
+        for (Object val : Arrays.stream(values).filter(v -> !Objects.isNull(v)).toArray())
             put((String)val);
     }
 
@@ -34,13 +34,12 @@ public class PowerSet {
 
     public void put(String value) {
         // find null or equals value insert index
-        int insertionIndexCandidate = Arrays.stream(searchIndexSequence(value))
+        OptionalInt insertionIndexCandidateOpt = Arrays.stream(searchIndexSequence(value))
                 .filter(i -> isNullOrEquals(value, values[i]))
                 .limit(1L)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("PowerSet is full."));
-        if (values[insertionIndexCandidate] == null) {
-            values[insertionIndexCandidate] = value;
+                .findFirst();
+        if (insertionIndexCandidateOpt.isPresent() && values[insertionIndexCandidateOpt.getAsInt()] == null) {
+            values[insertionIndexCandidateOpt.getAsInt()] = value;
             size++;
         }
     }
@@ -75,7 +74,7 @@ public class PowerSet {
     }
 
     public boolean isSubset(PowerSet set2) {
-        return Arrays.stream(set2.values).allMatch(this::get);
+        return Arrays.stream(set2.values).filter(v -> !Objects.isNull(v)).allMatch(this::get);
     }
 
     private int calcIndex(String value) {
@@ -83,7 +82,7 @@ public class PowerSet {
     }
 
     private int[] searchIndexSequence(String value) {
-        return IntStream.concat(IntStream.range(calcIndex(value), size), IntStream.range(0, calcIndex(value))).toArray();
+        return IntStream.concat(IntStream.range(calcIndex(value), values.length), IntStream.range(0, calcIndex(value))).toArray();
     }
 
     /**
