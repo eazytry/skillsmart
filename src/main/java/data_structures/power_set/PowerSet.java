@@ -1,5 +1,3 @@
-package data_structures.power_set;
-
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.OptionalInt;
