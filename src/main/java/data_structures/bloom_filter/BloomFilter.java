@@ -1,5 +1,3 @@
-package data_structures.bloom_filter;
-
 public class BloomFilter {
     public int filter_len;
     public int bits;
