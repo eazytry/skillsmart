@@ -16,7 +16,7 @@ public class Main {
 
         System.out.println(bloomFilter.isValue("3456789012"));
         System.out.println(bloomFilter.isValue("8901234567"));
-        System.out.println(bloomFilter.isValue("55"));
+        System.out.println(bloomFilter.isValue("1111111011"));
 
     }
 }
