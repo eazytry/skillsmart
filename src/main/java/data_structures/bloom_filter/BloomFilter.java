@@ -38,7 +38,6 @@ public class BloomFilter {
     }
 
     public boolean isValue(String str1) {
-        System.out.println(Integer.toBinaryString(bits));
         return ((1 << hash1(str1) | 1 << hash2(str1)) & bits) != 0;
     }
 }
