@@ -10,7 +10,7 @@ public class SimpleTreeNode<T> {
     public SimpleTreeNode(T val, SimpleTreeNode<T> parent) {
         NodeValue = val;
         Parent = parent;
-        Children = new ArrayList<>();
+        Children = null;
     }
 }
 
@@ -23,11 +23,15 @@ class SimpleTree<T> {
 
     public void AddChild(SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild) {
         NewChild.Parent = ParentNode;
+        if (ParentNode.Children == null) {
+            ParentNode.Children = new ArrayList<>();
+        }
         ParentNode.Children.add(NewChild);
     }
 
     public void DeleteNode(SimpleTreeNode<T> NodeToDelete) {
-        NodeToDelete.Parent.Children.remove(NodeToDelete);
+        if (NodeToDelete.Parent.Children != null)
+            NodeToDelete.Parent.Children.remove(NodeToDelete);
     }
 
     public List<SimpleTreeNode<T>> GetAllNodes() {
@@ -65,6 +69,8 @@ class SimpleTree<T> {
     }
 
     public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent) {
+        if (NewParent.Children == null)
+            NewParent.Children = new ArrayList<>();
         NewParent.Children.add(OriginalNode);
         OriginalNode.Parent = NewParent;
     }
