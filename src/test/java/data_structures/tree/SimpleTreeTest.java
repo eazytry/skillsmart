@@ -11,10 +11,10 @@ public class SimpleTreeTest {
         public void getAllWhenFull() {
             //when
             var root = new SimpleTreeNode<>("123", null);
-            var second = new SimpleTreeNode<>("321", null);
-            var third = new SimpleTreeNode<>("321", null);
-            var fourth = new SimpleTreeNode<>("321", null);
-            var fifth = new SimpleTreeNode<>("213213", null);
+            var second = new SimpleTreeNode<>("321", root);
+            var third = new SimpleTreeNode<>("321", root);
+            var fourth = new SimpleTreeNode<>("321", second);
+            var fifth = new SimpleTreeNode<>("213213", third);
             var stringSimpleTree = new SimpleTree<>(root);
             stringSimpleTree.AddChild(root, second);
             stringSimpleTree.AddChild(root, third);
@@ -28,6 +28,81 @@ public class SimpleTreeTest {
             Assertions.assertTrue(nodes.contains(third));
             Assertions.assertTrue(nodes.contains(fourth));
             Assertions.assertTrue(nodes.contains(fifth));
+        }
+
+        @Test
+        public void deleteNodeWhenExists() {
+            //when
+            var root = new SimpleTreeNode<>("123", null);
+            var second = new SimpleTreeNode<>("321", root);
+            var third = new SimpleTreeNode<>("321", root);
+            var fourth = new SimpleTreeNode<>("321", second);
+            var fifth = new SimpleTreeNode<>("213213", third);
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, second);
+            stringSimpleTree.AddChild(root, third);
+            stringSimpleTree.AddChild(second, fourth);
+            stringSimpleTree.AddChild(third, fifth);
+
+            stringSimpleTree.DeleteNode(third);
+            var actual = stringSimpleTree.GetAllNodes();
+
+            Assertions.assertTrue(actual.contains(root));
+            Assertions.assertTrue(actual.contains(second));
+            Assertions.assertTrue(actual.contains(fourth));
+            Assertions.assertFalse(actual.contains(third));
+            Assertions.assertFalse(actual.contains(fifth));
+        }
+
+        @Test
+        public void deleteNodeWhenNotExists() {
+            //when
+            var root = new SimpleTreeNode<>("123", null);
+            var second = new SimpleTreeNode<>("321", root);
+            var third = new SimpleTreeNode<>("321", root);
+            var fourth = new SimpleTreeNode<>("321", second);
+            var fifth = new SimpleTreeNode<>("213213", third);
+            var sixth = new SimpleTreeNode<>("213213", null);
+
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, second);
+            stringSimpleTree.AddChild(root, third);
+            stringSimpleTree.AddChild(second, fourth);
+            stringSimpleTree.AddChild(third, fifth);
+
+            stringSimpleTree.DeleteNode(sixth);
+            var actual = stringSimpleTree.GetAllNodes();
+
+            Assertions.assertTrue(actual.contains(root));
+            Assertions.assertTrue(actual.contains(second));
+            Assertions.assertTrue(actual.contains(third));
+            Assertions.assertTrue(actual.contains(fourth));
+            Assertions.assertTrue(actual.contains(fifth));
+        }
+
+        @Test
+        public void deleteNodeWhenRoot() {
+            //when
+            var root = new SimpleTreeNode<>("123", null);
+            var second = new SimpleTreeNode<>("321", root);
+            var third = new SimpleTreeNode<>("321", root);
+            var fourth = new SimpleTreeNode<>("321", second);
+            var fifth = new SimpleTreeNode<>("213213", third);
+
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, second);
+            stringSimpleTree.AddChild(root, third);
+            stringSimpleTree.AddChild(second, fourth);
+            stringSimpleTree.AddChild(third, fifth);
+
+            stringSimpleTree.DeleteNode(root);
+            var actual = stringSimpleTree.GetAllNodes();
+
+            Assertions.assertTrue(actual.contains(root));
+            Assertions.assertTrue(actual.contains(second));
+            Assertions.assertTrue(actual.contains(third));
+            Assertions.assertTrue(actual.contains(fourth));
+            Assertions.assertTrue(actual.contains(fifth));
         }
 
         @Test

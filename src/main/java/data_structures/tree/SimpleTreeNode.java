@@ -1,5 +1,3 @@
-package data_structures.tree;
-
 import java.util.*;
 
 public class SimpleTreeNode<T> {
@@ -30,7 +28,10 @@ class SimpleTree<T> {
     }
 
     public void DeleteNode(SimpleTreeNode<T> NodeToDelete) {
-        if (NodeToDelete.Parent.Children != null)
+        if (NodeToDelete != null
+                && NodeToDelete.Parent != null
+                && NodeToDelete.Parent.Children != null
+                && !NodeToDelete.equals(root))
             NodeToDelete.Parent.Children.remove(NodeToDelete);
     }
 
