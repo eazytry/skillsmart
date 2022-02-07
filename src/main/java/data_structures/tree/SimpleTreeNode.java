@@ -70,8 +70,12 @@ class SimpleTree<T> {
     }
 
     public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent) {
-        if (NewParent.Children == null)
+        if (NewParent.Children == null) {
             NewParent.Children = new ArrayList<>();
+        }
+        if (OriginalNode.Parent != null) {
+            OriginalNode.Parent.Children.remove(OriginalNode);
+        }
         NewParent.Children.add(OriginalNode);
         OriginalNode.Parent = NewParent;
     }

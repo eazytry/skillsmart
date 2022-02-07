@@ -106,6 +106,35 @@ public class SimpleTreeTest {
         }
 
         @Test
+        public void getAllNodesAfterMoveNode() {
+            //when
+            var root = new SimpleTreeNode<>("123", null);
+            var second = new SimpleTreeNode<>("321", root);
+            var third = new SimpleTreeNode<>("321", root);
+            var fourth = new SimpleTreeNode<>("321", second);
+            var fifth = new SimpleTreeNode<>("213213", third);
+
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, second);
+            stringSimpleTree.AddChild(root, third);
+            stringSimpleTree.AddChild(second, fourth);
+            stringSimpleTree.AddChild(third, fifth);
+
+            stringSimpleTree.MoveNode(fifth, root);
+            var actual = stringSimpleTree.GetAllNodes();
+
+            Assertions.assertTrue(actual.contains(root));
+            Assertions.assertTrue(actual.contains(second));
+            Assertions.assertTrue(actual.contains(third));
+            Assertions.assertTrue(actual.contains(fourth));
+            Assertions.assertTrue(actual.contains(fifth));
+            Assertions.assertFalse(third.Children.contains(fifth));
+            Assertions.assertNotEquals(fifth.Parent, third);
+            Assertions.assertTrue(root.Children.contains(fifth));
+            Assertions.assertEquals(fifth.Parent, root);
+        }
+
+        @Test
         public void getAllWhenEmpty() {
             //when
             var root = new SimpleTreeNode<>("123", null);
