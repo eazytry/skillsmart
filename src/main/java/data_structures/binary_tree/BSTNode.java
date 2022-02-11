@@ -38,63 +38,123 @@ class BSTFind<T> {
 
 class BST<T> {
     BSTNode<T> Root; // корень дерева, или null
+    int count = 0;
 
     public BST(BSTNode<T> node) {
+        if (node != null)
+            count++;
         Root = node;
     }
 
     public BSTFind<T> FindNodeByKey(int key) {
         BSTFind<T> found = new BSTFind<>();
+        found.Node = Root;
 
-        if (Root == null) {
-            found.Node = null;
-            return found;
+        while (found.Node != null) {
+            var temp = key >= found.Node.NodeKey ? found.Node.RightChild : found.Node.LeftChild;
+            if (temp == null)
+                break;
+            found.Node = temp;
         }
 
-        BSTNode<T> prev = null;
-        BSTNode<T> curr = Root;
-
-        while (curr != null) {
-            prev = curr;
-            if (key >  curr.NodeKey) {
-                curr = curr.RightChild;
-            }
-            curr = curr.LeftChild;
-        }
-
-        if (curr == null) {
-            found.Node = prev;
-            found.NodeHasKey = true;
-            if (key > prev.NodeKey) {
-                found.ToLeft = false;
+        if (found.Node != null) {
+            if (found.Node.NodeKey == key) {
+                found.NodeHasKey = true;
             } else {
-                found.ToLeft = true;
+                found.NodeHasKey = false;
+                found.ToLeft = key < found.Node.NodeKey;
             }
-            return found;
-        } else {
-            found.Node = curr;
-            found.NodeHasKey = true;
-            return found;
         }
+        return found;
     }
 
     public boolean AddKeyValue(int key, T val) {
-        // добавляем ключ-значение в дерево
+        var found = FindNodeByKey(key);
+
+        if (!found.NodeHasKey) {
+            var newNode = new BSTNode<>(key, val, null);
+            if (found.Node == null) {
+                Root = newNode;
+            } else {
+                if (found.ToLeft)
+                    found.Node.LeftChild = new BSTNode<>(key, val, found.Node);
+                else
+                    found.Node.RightChild = new BSTNode<>(key, val, found.Node);
+            }
+            count++;
+            return true;
+        }
+
         return false; // если ключ уже есть
     }
 
     public BSTNode<T> FinMinMax(BSTNode<T> FromNode, boolean FindMax) {
-        // ищем максимальный/минимальный ключ в поддереве
-        return null;
+        return FindMax ? findMax(FromNode) : findMin(FromNode);
+    }
+
+    private BSTNode<T> findMin(BSTNode<T> fromNode) {
+        if (fromNode == null) {
+            return null;
+        }
+        var found = fromNode;
+
+        while (found.LeftChild != null) {
+            found = found.LeftChild;
+        }
+
+        return found;
+    }
+
+    private BSTNode<T> findMax(BSTNode<T> fromNode) {
+        if (fromNode == null) {
+            return null;
+        }
+        var found = fromNode;
+
+        while (found.RightChild != null) {
+            found = found.RightChild;
+        }
+
+        return found;
     }
 
     public boolean DeleteNodeByKey(int key) {
-        // удаляем узел по ключу
-        return false; // если узел не найден
+        var found = FindNodeByKey(key);
+
+        if (found.NodeHasKey) {
+            var node = found.Node;
+
+            if (node.LeftChild == null || node.RightChild == null) {
+                if (node.LeftChild == null) {
+                    moveNodeInsteadOfChild(node, node.RightChild);
+                } else {
+                    moveNodeInsteadOfChild(node, node.LeftChild);
+                }
+            } else {
+
+            }
+            count--;
+            return true;
+        } else {
+            return false; // если узел не найден
+        }
+    }
+
+    private boolean isChildLeft(BSTNode<T> parent, BSTNode<T> child) {
+        return parent.LeftChild == child;
+    }
+
+    private void moveNodeInsteadOfChild(BSTNode<T> node, BSTNode<T> instead) {
+        var parent = node.Parent;
+
+        if (isChildLeft(parent, node)) {
+            parent.RightChild = instead;
+        } else {
+            parent.LeftChild = instead;
+        }
     }
 
     public int Count() {
-        return 0; // количество узлов в дереве
+        return count; // количество узлов в дереве
     }
-
 }
