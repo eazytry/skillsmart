@@ -50,11 +50,8 @@ class BST<T> {
         BSTFind<T> found = new BSTFind<>();
         found.Node = Root;
 
-        while (found.Node != null) {
-            var temp = key >= found.Node.NodeKey ? found.Node.RightChild : found.Node.LeftChild;
-            if (temp == null)
-                break;
-            found.Node = temp;
+        while (hasNext(key, found.Node)) {
+            found.Node = key > found.Node.NodeKey ? found.Node.RightChild : found.Node.LeftChild;
         }
 
         if (found.Node != null) {
@@ -66,6 +63,12 @@ class BST<T> {
             }
         }
         return found;
+    }
+
+    private boolean hasNext(int key, BSTNode<T> node) {
+        if (node == null)
+            return false;
+        return key != node.NodeKey && (key > node.NodeKey ? node.RightChild != null : node.LeftChild != null);
     }
 
     public boolean AddKeyValue(int key, T val) {
@@ -122,16 +125,42 @@ class BST<T> {
         var found = FindNodeByKey(key);
 
         if (found.NodeHasKey) {
-            var node = found.Node;
+            var nodeToDelete = found.Node;
+            BSTNode<T> candidate;
 
-            if (node.LeftChild == null || node.RightChild == null) {
-                if (node.LeftChild == null) {
-                    moveNodeInsteadOfChild(node, node.RightChild);
-                } else {
-                    moveNodeInsteadOfChild(node, node.LeftChild);
-                }
+            if (nodeToDelete.LeftChild == null || nodeToDelete.RightChild == null) {
+                if (nodeToDelete.LeftChild == null && nodeToDelete.RightChild == null)
+                    candidate = null;
+                else
+                    candidate = nodeToDelete.LeftChild == null ? nodeToDelete.RightChild : nodeToDelete.LeftChild;
             } else {
-
+                // случай когда у удаляемого узла есть два потомка
+                candidate = findMin(nodeToDelete.RightChild);
+                // Если у кандидата есть правый узел - заменяем кандидата на его правый узел
+                if (candidate.RightChild != null) {
+                    candidate.RightChild.Parent = candidate.Parent;
+                }
+                // если у кандидата есть правые узел - присваиваем его в левого потомка родителя удаляемого узла
+                candidate.Parent.LeftChild = candidate.RightChild;
+                // Заменяем потомков кандидата на потомков удаляемого узла
+                candidate.LeftChild = nodeToDelete.LeftChild;
+                candidate.RightChild = nodeToDelete.RightChild;
+            }
+            // Если удаляем корень = заменяем ссылку в дереве на корень
+            if (nodeToDelete == Root) {
+                Root = candidate;
+            }
+            // Если удаляем не корень, то заменяем потомка родителя удаляемого узла на кандидата
+            if (nodeToDelete.Parent != null) {
+                if (isChildLeft(nodeToDelete.Parent, nodeToDelete)) {
+                    nodeToDelete.Parent.LeftChild = candidate;
+                } else {
+                    nodeToDelete.Parent.RightChild = candidate;
+                }
+            }
+            if (candidate != null) {
+                // Заменяем родителя кандидата на родителя удаляемого узла
+                candidate.Parent = nodeToDelete.Parent;
             }
             count--;
             return true;
@@ -142,16 +171,6 @@ class BST<T> {
 
     private boolean isChildLeft(BSTNode<T> parent, BSTNode<T> child) {
         return parent.LeftChild == child;
-    }
-
-    private void moveNodeInsteadOfChild(BSTNode<T> node, BSTNode<T> instead) {
-        var parent = node.Parent;
-
-        if (isChildLeft(parent, node)) {
-            parent.RightChild = instead;
-        } else {
-            parent.LeftChild = instead;
-        }
     }
 
     public int Count() {
