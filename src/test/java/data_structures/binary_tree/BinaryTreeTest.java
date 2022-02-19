@@ -441,4 +441,108 @@ public class BinaryTreeTest {
         Assertions.assertNull(bst.Root);
         Assertions.assertFalse(bst.FindNodeByKey(50).NodeHasKey);
     }
+
+    @Test
+    public void wideAllNodes() {
+        //when
+        var root = new BSTNode<>(50, "1234", null);
+        var bst = new BST<>(root);
+
+        var rootLeft = new BSTNode<>(4, "1234", root);
+        var rootRight = new BSTNode<>(100, "1234", root);
+        var rootRightRight = new BSTNode<>(150, "123", rootRight);
+        var rootRightLeft = new BSTNode<>(75, "333", rootRight);
+        var rootRightLeftRight = new BSTNode<>(80, "11", rootRightLeft);
+        var rootRightRightRight = new BSTNode<>(160, "123", rootRightRight);
+
+        root.LeftChild = rootLeft;
+        root.RightChild = rootRight;
+        rootRight.RightChild = rootRightRight;
+        rootRight.LeftChild = rootRightLeft;
+        rootRightLeft.RightChild = rootRightLeftRight;
+        rootRightRight.RightChild = rootRightRightRight;
+
+        var nodes = bst.WideAllNodes();
+
+        Assertions.assertEquals(root, nodes.get(0));
+        Assertions.assertEquals(rootLeft, nodes.get(1));
+        Assertions.assertEquals(rootRight, nodes.get(2));
+        Assertions.assertEquals(rootRightLeft, nodes.get(3));
+        Assertions.assertEquals(rootRightRight, nodes.get(4));
+        Assertions.assertEquals(rootRightLeftRight, nodes.get(5));
+        Assertions.assertEquals(rootRightRightRight, nodes.get(6));
+    }
+
+    @Test
+    public void DeepAllNodesInOrder() {
+        //when
+        var six = new BSTNode<>(6, "123", null);
+        var bst = new BST<>(six);
+
+        var two = new BSTNode<>(2, "1234", six);
+        var eight = new BSTNode<>(8, "123", six);
+        var one = new BSTNode<>(1, "1234", two);
+        var four = new BSTNode<>(4, "333", two);
+        var three = new BSTNode<>(3, "123", four);
+        var five = new BSTNode<>(5, "11", four);
+        var seven = new BSTNode<>(7, "123", eight);
+        var nine = new BSTNode<>(9, "1234", eight);
+
+        six.LeftChild = two;
+        six.RightChild = eight;
+        two.LeftChild = one;
+        two.RightChild = four;
+        four.LeftChild = three;
+        four.RightChild = five;
+        eight.LeftChild = seven;
+        eight.RightChild = nine;
+
+        var nodes = bst.DeepAllNodes(0);
+
+        Assertions.assertEquals(nodes.get(0), one);
+        Assertions.assertEquals(nodes.get(1), two);
+        Assertions.assertEquals(nodes.get(2), three);
+        Assertions.assertEquals(nodes.get(3), four);
+        Assertions.assertEquals(nodes.get(4), five);
+        Assertions.assertEquals(nodes.get(5), six);
+        Assertions.assertEquals(nodes.get(6), seven);
+        Assertions.assertEquals(nodes.get(7), eight);
+        Assertions.assertEquals(nodes.get(8), nine);
+    }
+    @Test
+    public void DeepAllNodesPostOrder() {
+        //when
+
+        var nine = new BSTNode<>(9, "1234", null);
+        var bst = new BST<>(nine);
+        var five = new BSTNode<>(5, "11", nine);
+        var eight = new BSTNode<>(8, "123", nine);
+        var one = new BSTNode<>(1, "1234", five);
+        var four = new BSTNode<>(4, "333", five);
+        var two = new BSTNode<>(2, "1234", four);
+        var three = new BSTNode<>(3, "123", four);
+        var six = new BSTNode<>(6, "123", eight);
+        var seven = new BSTNode<>(7, "123", eight);
+
+        nine.LeftChild = five;
+        nine.RightChild = eight;
+        five.LeftChild = one;
+        five.RightChild = four;
+        four.LeftChild = two;
+        four.RightChild = three;
+        eight.LeftChild = six;
+        eight.RightChild = seven;
+
+        var nodes = bst.DeepAllNodes(1);
+
+        Assertions.assertEquals(nodes.get(0), one);
+        Assertions.assertEquals(nodes.get(1), two);
+        Assertions.assertEquals(nodes.get(2), three);
+        Assertions.assertEquals(nodes.get(3), four);
+        Assertions.assertEquals(nodes.get(4), five);
+        Assertions.assertEquals(nodes.get(5), six);
+        Assertions.assertEquals(nodes.get(6), seven);
+        Assertions.assertEquals(nodes.get(7), eight);
+        Assertions.assertEquals(nodes.get(8), nine);
+    }
 }

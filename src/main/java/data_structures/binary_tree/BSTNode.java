@@ -1,5 +1,7 @@
 package data_structures.binary_tree;
 
+import groovyjarjarasm.asm.tree.VarInsnNode;
+
 import java.io.*;
 import java.util.*;
 
@@ -175,5 +177,80 @@ class BST<T> {
 
     public int Count() {
         return count; // количество узлов в дереве
+    }
+
+    public ArrayList<BSTNode> WideAllNodes() {
+        return WideAllNodes(Root);
+    }
+
+    public ArrayList<BSTNode> WideAllNodes(BSTNode node) {
+        if (node == null) {
+            return new ArrayList<>();
+        }
+        Deque<BSTNode> queue = new ArrayDeque<>(List.of(node));
+        ArrayList<BSTNode> list = new ArrayList<>();
+
+        while (!queue.isEmpty()) {
+            var polled = queue.pollLast();
+            list.add(polled);
+            if (polled.LeftChild != null) {
+                queue.addFirst(polled.LeftChild);
+            }
+            if (polled.RightChild != null) {
+                queue.addFirst(polled.RightChild);
+            }
+        }
+        return list;
+    }
+
+    ArrayList<BSTNode> DeepAllNodes(final int order) {
+        if (Root == null) {
+            return new ArrayList<>();
+        }
+        switch (order) {
+            case 0:
+                return inOrder(Root);
+            case 1:
+                return postOrder(Root);
+            case 2:
+                return preOrder(Root);
+        }
+        return new ArrayList<>();
+    }
+
+    ArrayList<BSTNode> inOrder(BSTNode node) {
+        var list = new ArrayList<BSTNode>();
+        if (node.LeftChild != null) {
+            list.addAll(inOrder(node.LeftChild));
+        }
+        list.add(node);
+        if (node.RightChild != null) {
+            list.addAll(inOrder(node.RightChild));
+        }
+        return list;
+    }
+
+    ArrayList<BSTNode> preOrder(BSTNode node) {
+        var list = new ArrayList<BSTNode>();
+        list.add(node);
+        if (node.LeftChild != null) {
+            list.addAll(preOrder(node.LeftChild));
+        }
+        if (node.RightChild != null) {
+            list.addAll(preOrder(node.RightChild));
+        }
+        return list;
+    }
+
+    ArrayList<BSTNode> postOrder(BSTNode node) {
+        var list = new ArrayList<BSTNode>();
+        if (node.LeftChild != null) {
+            list.addAll(postOrder(node.LeftChild));
+        }
+        if (node.RightChild != null) {
+            list.addAll(postOrder(node.RightChild));
+        }
+        list.add(node);
+        return list;
     }
 }
