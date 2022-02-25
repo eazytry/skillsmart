@@ -1,3 +1,5 @@
+package data_structures.binary_tree;
+
 import java.io.*;
 import java.util.*;
 
