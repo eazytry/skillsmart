@@ -75,4 +75,11 @@ public class aBSTTest {
         Assertions.assertEquals(2, firstRight);
         Assertions.assertEquals(3, firstLeftLeft);
     }
+
+    @Test
+    public void createWhenDepthIs3() {
+        var aBST = new aBST(3);
+
+        Assertions.assertEquals(15, aBST.Tree.length);
+    }
 }
