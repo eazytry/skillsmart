@@ -38,6 +38,9 @@ class aBST {
                 Tree[i] = key;
                 return i;
             }
+            if (Tree[i] == key) {
+                return i;
+            }
             if (key < Tree[i]) {
                 i = i * 2 + 1;
             } else {

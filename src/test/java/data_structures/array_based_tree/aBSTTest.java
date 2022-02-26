@@ -49,6 +49,17 @@ public class aBSTTest {
     }
 
     @Test
+    public void addWhenExists() {
+        var aBST = new aBST(1);
+
+        var actual = aBST.AddKey(75);
+        var exists = aBST.AddKey(75);
+
+        Assertions.assertEquals(0, actual);
+        Assertions.assertEquals(0, exists);
+    }
+
+    @Test
     public void addWhenFull() {
         var aBST = new aBST(0);
 
