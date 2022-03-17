@@ -5,11 +5,21 @@ import java.util.*;
 public class AlgorithmsDataStructures2 {
     public static int[] GenerateBBSTArray(int[] a) {
         Arrays.sort(a);
-        int[] tree = new int[(int) Math.round(Math.pow(2d, Math.sqrt(a.length) + 1)) - 1];
+
+        int[] tree = new int[findArrSize(a.length)];
 
         generateBST(a, tree, 0);
-
         return tree;
+    }
+
+    private static int findArrSize(int number) {
+        int degree = 1;
+        int summ = 0;
+        while (degree <= number) {
+            summ += degree;
+            degree = degree * 2;
+        }
+        return summ;
     }
 
     private static void generateBST(int[] a, int[] tree, int currTreeIndex) {
