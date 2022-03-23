@@ -87,6 +87,14 @@ public class BalancedBSTTest {
     }
 
     @Test
+    public void whenIsBalancedWithNoRootShouldTrueWhenTreeElements() {
+        var bst = new BalancedBST();
+        bst.GenerateTree(new int[]{1, 2, 3});
+
+        Assertions.assertTrue(bst.IsBalanced(bst.Root.LeftChild));
+    }
+
+    @Test
     public void whenIsBalancedShouldFalseWhenTreeElements() {
         var bst = new BalancedBST();
         bst.Root = new BSTNode(3, null);
@@ -97,5 +105,15 @@ public class BalancedBSTTest {
         bst.Root.LeftChild.LeftChild.Level = 2;
 
         Assertions.assertFalse(bst.IsBalanced(bst.Root));
+    }
+
+    @Test
+    public void whenIsBalancedShouldFalseWhenManyElements() {
+        var bst = new BalancedBST();
+        bst.GenerateTree(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16});
+
+        Assertions.assertTrue(bst.IsBalanced(bst.Root.LeftChild));
+        Assertions.assertTrue(bst.IsBalanced(bst.Root.RightChild));
+        Assertions.assertTrue(bst.IsBalanced(bst.Root));
     }
 }

@@ -52,11 +52,18 @@ class BalancedBST {
 
     public boolean IsBalanced(BSTNode root_node) {
         if (root_node == null) {
+            return false;
+        }
+        if (root_node.LeftChild == null && root_node.RightChild == null) {
             return true;
         }
-        if (root_node.LeftChild == null && root_node.RightChild == null && root_node.Level > 1) {
-            return root_node.Parent.Parent.LeftChild != null && root_node.Parent.Parent.RightChild != null;
+        if (root_node.LeftChild == null) {
+            return root_node.RightChild.LeftChild == null && root_node.RightChild.RightChild == null;
         }
+        if (root_node.RightChild == null){
+            return root_node.LeftChild.LeftChild == null && root_node.LeftChild.RightChild == null;
+        }
+
         var isLeftSubtreeBalanced = IsBalanced(root_node.LeftChild);
         var isRightSubtreeBalanced = IsBalanced(root_node.RightChild);
 
