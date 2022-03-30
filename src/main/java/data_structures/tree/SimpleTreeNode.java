@@ -1,6 +1,7 @@
 package data_structures.tree;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SimpleTreeNode<T> {
     public T NodeValue; // значение в узле
@@ -100,5 +101,33 @@ class SimpleTree<T> {
             nodes.addAll(findLeafs(subNode));
         }
         return nodes;
+    }
+
+    public ArrayList<T> EvenTrees() {
+        var removeVertexes = new ArrayList<SimpleTreeNode<T>>();
+        if (root != null)
+            getVertexCount(root, removeVertexes);
+        return removeVertexes.stream().map(vertex -> vertex.NodeValue).collect(Collectors.toCollection(ArrayList::new));
+        // ...
+    }
+
+    private int getVertexCount(SimpleTreeNode<T> node, ArrayList<SimpleTreeNode<T>> removeEdges) {
+        if (node.Children == null || node.Children.isEmpty())
+            return 1;
+        else {
+            int vertexCount = node.Children
+                    .stream()
+                    .map(ch -> getVertexCount(ch, removeEdges))
+                    .reduce(Integer::sum)
+                    .orElse(0);
+            if ((vertexCount + 1) % 2 == 0
+                    && node.Parent != null
+                    && node.Parent.Children.stream().filter(ch -> !removeEdges.contains(ch)).count() > 1) {
+                removeEdges.addAll(List.of(node.Parent, node));
+                return 0;
+            } else {
+                return vertexCount + 1;
+            }
+        }
     }
 }

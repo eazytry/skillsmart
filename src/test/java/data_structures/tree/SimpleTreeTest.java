@@ -208,4 +208,124 @@ public class SimpleTreeTest {
 
             Assertions.assertEquals(2, count);
         }
+
+        @Test
+        public void whenEvenTreeShouldReturnEmpty() {
+            //when
+            var root = new SimpleTreeNode<>("1", null);
+            var second = new SimpleTreeNode<>("2", null);
+            var third = new SimpleTreeNode<>("3", null);
+
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, second);
+            stringSimpleTree.AddChild(root, third);
+
+            var list = stringSimpleTree.EvenTrees();
+
+            Assertions.assertTrue(list.isEmpty());
+        }
+
+        @Test
+        public void whenEvenTreeShouldReturnOneEdge() {
+            //when
+            var root = new SimpleTreeNode<>("1", null);
+            var second = new SimpleTreeNode<>("2", null);
+            var third = new SimpleTreeNode<>("3", null);
+            var fourth = new SimpleTreeNode<>("4", null);
+
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, second);
+            stringSimpleTree.AddChild(root, third);
+            stringSimpleTree.AddChild(third, fourth);
+
+            var list = stringSimpleTree.EvenTrees();
+
+            Assertions.assertFalse(list.isEmpty());
+            Assertions.assertEquals("1", list.get(0));
+            Assertions.assertEquals("3", list.get(1));
+        }
+
+        @Test
+        public void whenEvenTreeShouldReturnOneEdge_2() {
+            //when
+            var root = new SimpleTreeNode<>("1", null);
+            var second = new SimpleTreeNode<>("2", null);
+            var third = new SimpleTreeNode<>("3", null);
+            var fourth = new SimpleTreeNode<>("4", null);
+            var fifth = new SimpleTreeNode<>("5", null);
+
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, second);
+            stringSimpleTree.AddChild(root, third);
+            stringSimpleTree.AddChild(third, fourth);
+            stringSimpleTree.AddChild(second, fifth);
+
+            var list = stringSimpleTree.EvenTrees();
+
+            Assertions.assertFalse(list.isEmpty());
+            Assertions.assertEquals(2, list.size());
+            Assertions.assertEquals("1", list.get(0));
+            Assertions.assertEquals("2", list.get(1));
+        }
+
+        @Test
+        public void whenEvenTreeShouldReturnTwoEdges() {
+            //when
+            var root = new SimpleTreeNode<>("1", null);
+            var rFirst = new SimpleTreeNode<>("2", null);
+            var rSecond = new SimpleTreeNode<>("3", null);
+            var rThird = new SimpleTreeNode<>("4", null);
+            var rfFirst = new SimpleTreeNode<>("5", null);
+            var rsFirst = new SimpleTreeNode<>("6", null);
+
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, rFirst);
+            stringSimpleTree.AddChild(root, rSecond);
+            stringSimpleTree.AddChild(root, rThird);
+            stringSimpleTree.AddChild(rFirst, rfFirst);
+            stringSimpleTree.AddChild(rSecond, rsFirst);
+
+            var list = stringSimpleTree.EvenTrees();
+
+            Assertions.assertFalse(list.isEmpty());
+            Assertions.assertEquals(4, list.size());
+            Assertions.assertEquals("1", list.get(0));
+            Assertions.assertEquals("2", list.get(1));
+            Assertions.assertEquals("1", list.get(2));
+            Assertions.assertEquals("3", list.get(3));
+        }
+        @Test
+        public void whenEvenTreeShouldReturnTwoEdges_2() {
+            //when
+            var root = new SimpleTreeNode<>("1", null);
+            var rFirst = new SimpleTreeNode<>("2", null);
+            var rSecond = new SimpleTreeNode<>("3", null);
+            var rThird = new SimpleTreeNode<>("4", null);
+            var rfFirst = new SimpleTreeNode<>("5", null);
+            var rfSecond = new SimpleTreeNode<>("6", null);
+            var rsFirst = new SimpleTreeNode<>("7", null);
+            var rtFirst = new SimpleTreeNode<>("8", null);
+            var rtfFirst = new SimpleTreeNode<>("9", null);
+            var rtfSecond = new SimpleTreeNode<>("10", null);
+
+            var stringSimpleTree = new SimpleTree<>(root);
+            stringSimpleTree.AddChild(root, rFirst);
+            stringSimpleTree.AddChild(root, rSecond);
+            stringSimpleTree.AddChild(root, rThird);
+            stringSimpleTree.AddChild(rFirst, rfFirst);
+            stringSimpleTree.AddChild(rFirst, rfSecond);
+            stringSimpleTree.AddChild(rSecond, rsFirst);
+            stringSimpleTree.AddChild(rThird, rtFirst);
+            stringSimpleTree.AddChild(rtFirst, rtfFirst);
+            stringSimpleTree.AddChild(rtFirst, rtfSecond);
+
+            var list = stringSimpleTree.EvenTrees();
+
+            Assertions.assertFalse(list.isEmpty());
+            Assertions.assertEquals(4, list.size());
+            Assertions.assertEquals("1", list.get(0));
+            Assertions.assertEquals("3", list.get(1));
+            Assertions.assertEquals("1", list.get(2));
+            Assertions.assertEquals("4", list.get(3));
+        }
 }
