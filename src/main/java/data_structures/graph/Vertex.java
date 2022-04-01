@@ -72,7 +72,7 @@ class SimpleGraph {
     }
 
     public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
-        if (max_vertex == 0) {
+        if (VFrom >= vertex.length || VTo >= vertex.length) {
             return new ArrayList<>();
         }
         clearHits();
@@ -80,7 +80,10 @@ class SimpleGraph {
         vertex[VFrom].Hit = true;
         stack.push(VFrom);
 
-        return DepthFirstSearch(stack, VTo).stream().map(index -> vertex[index]).collect(Collectors.toCollection(ArrayList::new));
+        return DepthFirstSearch(stack, VTo)
+                .stream()
+                .map(index -> vertex[index])
+                .collect(Collectors.toCollection(ArrayList::new));
         // Узлы задаются позициями в списке vertex.
         // Возвращается список узлов -- путь из VFrom в VTo.
         // Список пустой, если пути нету.
@@ -108,7 +111,7 @@ class SimpleGraph {
     }
 
     private Integer searchLinkedNotHitVertexOrToIndex(int index) {
-        for (int i = 0; i < max_vertex; i++) {
+        for (int i = 0; i < vertex.length; i++) {
             if ((m_adjacency[i][index] > 0 || m_adjacency[index][i] > 0) && !vertex[i].Hit) {
                 return i;
             }
