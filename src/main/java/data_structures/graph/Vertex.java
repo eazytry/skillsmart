@@ -97,7 +97,7 @@ class SimpleGraph {
         if (stack.isEmpty()) {
             return stack;
         }
-        var foundVertex = searchLinkedNotHitVertexOrToIndex(stack.peek());
+        var foundVertex = searchLinkedNotHitVertexOrToIndex(stack.peek(), VTo);
         if (foundVertex == null) {
             stack.pop();
         } else {
@@ -110,12 +110,19 @@ class SimpleGraph {
         return DepthFirstSearch(stack, VTo);
     }
 
-    private Integer searchLinkedNotHitVertexOrToIndex(int index) {
+    private Integer searchLinkedNotHitVertexOrToIndex(int index, int toIndex) {
+        HashSet<Integer> candidates = new HashSet<>();
         for (int i = 0; i < vertex.length; i++) {
             if ((m_adjacency[i][index] > 0 || m_adjacency[index][i] > 0) && !vertex[i].Hit) {
-                return i;
+                candidates.add(i);
             }
         }
-        return null;
+        if (candidates.contains(toIndex)) {
+            return toIndex;
+        } else if (candidates.isEmpty()) {
+            return null;
+        } else {
+            return candidates.stream().findAny().get();
+        }
     }
 }

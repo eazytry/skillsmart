@@ -70,6 +70,30 @@ public class GraphTest {
 
     @Test
     public void testDepthFirstSearch() {
+        var graph = new SimpleGraph(5);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+
+        var vertices = graph.DepthFirstSearch(0, 4);
+
+        Assertions.assertFalse(vertices.isEmpty());
+    }
+
+    @Test
+    public void testDepthFirstSearchReverse() {
         var graph = new SimpleGraph(4);
 
         // add vertexes
@@ -83,13 +107,13 @@ public class GraphTest {
         graph.m_adjacency[2][1] = 1;
         graph.m_adjacency[1][3] = 1;
 
-        var vertices = graph.DepthFirstSearch(0, 3);
+        var vertices = graph.DepthFirstSearch(3, 0);
 
         Assertions.assertFalse(vertices.isEmpty());
-        Assertions.assertEquals(1, vertices.get(0).Value);
-        Assertions.assertEquals(3, vertices.get(1).Value);
-        Assertions.assertEquals(2, vertices.get(2).Value);
-        Assertions.assertEquals(4, vertices.get(3).Value);
+        Assertions.assertEquals(4, vertices.get(0).Value);
+        Assertions.assertEquals(2, vertices.get(1).Value);
+        Assertions.assertEquals(3, vertices.get(2).Value);
+        Assertions.assertEquals(1, vertices.get(3).Value);
     }
 
     @Test
