@@ -179,7 +179,7 @@ class SimpleGraph {
             return new ArrayList<>();
         }
         var result = new ArrayList<>(List.of(vertex[edges.get(edges.size() - 1).getV1()]));
-        for (int i = edges.size() - 1; i >= 0 ; i--) {
+        for (int i = edges.size() - 1; i >= 0; i--) {
             result.add(vertex[edges.get(i).getV2()]);
         }
         return result;
@@ -193,8 +193,8 @@ class SimpleGraph {
         return edge;
     }
 
-    public List<Integer> findAllNotHitLinkedVertexIndexes(Integer index) {
-        List<Integer> indexes = new ArrayList<>();
+    public Set<Integer> findAllNotHitLinkedVertexIndexes(Integer index) {
+        Set<Integer> indexes = new HashSet<>();
         for (int i = 0; i < vertex.length; i++) {
             if ((m_adjacency[i][index] == 1 || m_adjacency[index][i] == 1) && !vertex[i].Hit) {
                 indexes.add(i);
