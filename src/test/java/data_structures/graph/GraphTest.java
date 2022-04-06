@@ -119,6 +119,31 @@ public class GraphTest {
     }
 
     @Test
+    public void testBreadthFirstSearchWhenEmpty() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+
+        var vertices = graph.BreadthFirstSearch(0, 5);
+
+        Assertions.assertTrue(vertices.isEmpty());
+    }
+
+    @Test
     public void testDepthFirstSearchReverse() {
         var graph = new SimpleGraph(4);
 

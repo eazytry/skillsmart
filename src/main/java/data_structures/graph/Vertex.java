@@ -155,6 +155,9 @@ class SimpleGraph {
     }
 
     private List<Edge> findRoute(Integer start, Integer finish, Set<Edge> edges) {
+        if (edges.isEmpty()) {
+            return new ArrayList<>();
+        }
         var lastEdge = findLastEdge(start, finish, edges);
         var result = new ArrayList<>(List.of(lastEdge));
         Integer currStart = lastEdge.getV1();
@@ -172,6 +175,9 @@ class SimpleGraph {
     }
 
     private ArrayList<Vertex> reverseRoute(List<Edge> edges) {
+        if (edges.isEmpty()) {
+            return new ArrayList<>();
+        }
         var result = new ArrayList<>(List.of(vertex[edges.get(edges.size() - 1).getV1()]));
         for (int i = edges.size() - 1; i >= 0 ; i--) {
             result.add(vertex[edges.get(i).getV2()]);
