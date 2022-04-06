@@ -119,6 +119,78 @@ public class GraphTest {
     }
 
     @Test
+    public void testBreadthFirstSearchShouldReturnTwoVertexes() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+
+        var vertices = graph.BreadthFirstSearch(4, 5);
+
+        Assertions.assertFalse(vertices.isEmpty());
+    }
+
+    @Test
+    public void testBreadthFirstSearchShouldReturnTwoVertexesWhenOneEdgeExists() {
+        var graph = new SimpleGraph(2);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+
+        graph.AddEdge(0, 1);
+
+        var vertices = graph.BreadthFirstSearch(0, 1);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(1, vertices.get(0).Value);
+        Assertions.assertEquals(2, vertices.get(1).Value);
+    }
+
+
+    @Test
+    public void testBreadthFirstSearchShouldReturnEmptyWhenOneVertexExists() {
+        var graph = new SimpleGraph(1);
+
+        graph.AddVertex(1);
+
+        var vertices = graph.BreadthFirstSearch(0, 1);
+
+        Assertions.assertTrue(vertices.isEmpty());
+    }
+
+    @Test
+    public void testBreadthFirstSearchShouldReturnTwoVertexesWhenTwoEdgeExists() {
+        var graph = new SimpleGraph(3);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 2);
+
+        var vertices = graph.BreadthFirstSearch(1, 2);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.get(0).Value);
+        Assertions.assertEquals(3, vertices.get(1).Value);
+    }
+
+    @Test
     public void testBreadthFirstSearchWhenEmpty() {
         var graph = new SimpleGraph(6);
 
