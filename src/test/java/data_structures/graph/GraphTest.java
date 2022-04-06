@@ -140,6 +140,8 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(3, 0);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(4, vertices.get(0).Value);
+        Assertions.assertEquals(1, vertices.get(1).Value);
     }
 
     @Test
