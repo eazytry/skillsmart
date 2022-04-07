@@ -128,14 +128,21 @@ public class GraphTest {
         graph.AddVertex(4);
         graph.AddVertex(5);
 
-        graph.AddEdge(0, 1);
-        graph.AddEdge(0, 2);
-        graph.AddEdge(0, 3);
-        graph.AddEdge(2, 3);
-        graph.AddEdge(1, 3);
-        graph.AddEdge(1, 4);
-        graph.AddEdge(3, 4);
-        graph.AddEdge(3, 3);
+        graph.m_adjacency[0][1] = 1;
+        graph.m_adjacency[1][0] = 1;
+        graph.m_adjacency[0][2] = 1;
+        graph.m_adjacency[2][0] = 1;
+        graph.m_adjacency[3][0] = 1;
+        graph.m_adjacency[0][3] = 1;
+        graph.m_adjacency[2][3] = 1;
+        graph.m_adjacency[3][2] = 1;
+        graph.m_adjacency[1][3] = 1;
+        graph.m_adjacency[3][1] = 1;
+        graph.m_adjacency[1][4] = 1;
+        graph.m_adjacency[4][1] = 1;
+        graph.m_adjacency[3][4] = 1;
+        graph.m_adjacency[4][3] = 1;
+        graph.m_adjacency[3][3] = 1;
 
         var vertices = graph.BreadthFirstSearch(3, 0);
 
