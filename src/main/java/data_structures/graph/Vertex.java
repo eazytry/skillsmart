@@ -164,15 +164,17 @@ class SimpleGraph {
         Integer currFinish = lastEdge.getV1();
 
         while (!start.equals(currStart)) {
-            var temp = new Edge(--currStart, currFinish);
-            if (edges.contains(temp)) {
-                result.add(temp);
-                currStart = temp.getV1();
-                currFinish = temp.getV1();
-            }
+            var edge = start > finish
+                    ? new Edge(++currStart, currFinish)
+                    : new Edge(--currStart, currFinish);
+        if (edges.contains(edge)) {
+            result.add(edge);
+            currStart = edge.getV1();
+            currFinish = edge.getV1();
         }
-        return result;
     }
+        return result;
+}
 
     private ArrayList<Vertex> reverseRoute(List<Edge> edges) {
         if (edges.isEmpty()) {
@@ -188,7 +190,12 @@ class SimpleGraph {
     private Edge findLastEdge(Integer start, Integer finish, Set<Edge> edges) {
         var edge = new Edge(start, finish);
         while (!edges.contains(edge)) {
+            if (start > finish) {
+                edge = new Edge(--start, finish);
+                continue;
+            }
             edge = new Edge(++start, finish);
+            ;
         }
         return edge;
     }
@@ -203,39 +210,39 @@ class SimpleGraph {
         return indexes;
     }
 
-    private static class Edge {
-        private final Integer v1;
-        private final Integer v2;
+private static class Edge {
+    private final Integer v1;
+    private final Integer v2;
 
-        public Edge(Integer v1, Integer v2) {
-            this.v1 = v1;
-            this.v2 = v2;
-        }
-
-        public Integer getV1() {
-            return v1;
-        }
-
-        public Integer getV2() {
-            return v2;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Edge edge = (Edge) o;
-
-            if (v1 != null ? !v1.equals(edge.v1) : edge.v1 != null) return false;
-            return v2 != null ? v2.equals(edge.v2) : edge.v2 == null;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = v1 != null ? v1.hashCode() : 0;
-            result = 31 * result + (v2 != null ? v2.hashCode() : 0);
-            return result;
-        }
+    public Edge(Integer v1, Integer v2) {
+        this.v1 = v1;
+        this.v2 = v2;
     }
+
+    public Integer getV1() {
+        return v1;
+    }
+
+    public Integer getV2() {
+        return v2;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Edge edge = (Edge) o;
+
+        if (v1 != null ? !v1.equals(edge.v1) : edge.v1 != null) return false;
+        return v2 != null ? v2.equals(edge.v2) : edge.v2 == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = v1 != null ? v1.hashCode() : 0;
+        result = 31 * result + (v2 != null ? v2.hashCode() : 0);
+        return result;
+    }
+}
 }

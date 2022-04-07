@@ -120,13 +120,14 @@ public class GraphTest {
 
     @Test
     public void testBreadthFirstSearchReverse() {
-        var graph = new SimpleGraph(5);
+        var graph = new SimpleGraph(6);
 
         graph.AddVertex(1);
         graph.AddVertex(2);
         graph.AddVertex(3);
         graph.AddVertex(4);
         graph.AddVertex(5);
+        graph.AddVertex(6);
 
         graph.AddEdge(0, 1);
         graph.AddEdge(1, 0);
@@ -143,12 +144,16 @@ public class GraphTest {
         graph.AddEdge(4, 3);
         graph.AddEdge(3, 4);
         graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
 
-        var vertices = graph.BreadthFirstSearch(3, 0);
+        var vertices = graph.BreadthFirstSearch(5, 0);
 
         Assertions.assertFalse(vertices.isEmpty());
-        Assertions.assertEquals(4, vertices.get(0).Value);
-        Assertions.assertEquals(1, vertices.get(1).Value);
+        Assertions.assertEquals(6, vertices.get(0).Value);
+        Assertions.assertEquals(5, vertices.get(1).Value);
+        Assertions.assertEquals(2, vertices.get(2).Value);
+        Assertions.assertEquals(1, vertices.get(3).Value);
     }
 
     @Test
