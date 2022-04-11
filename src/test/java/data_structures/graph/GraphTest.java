@@ -3,8 +3,6 @@ package data_structures.graph;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.ArrayList;
-
 public class GraphTest {
     @Test
     public void testAddVertexWhenEmpty() {
@@ -162,6 +160,143 @@ public class GraphTest {
     }
 
     @Test
+    public void testBreadthFirstSearchWhenFirstOneEdge() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(0, 3);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(1, vertices.get(0).Value);
+        Assertions.assertEquals(4, vertices.get(1).Value);
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenFirstOneEdgeReverse() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(3, 0);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(4, vertices.get(0).Value);
+        Assertions.assertEquals(1, vertices.get(1).Value);
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenMiddleOneEdge() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(2, 3);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(3, vertices.get(0).Value);
+        Assertions.assertEquals(4, vertices.get(1).Value);
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenMiddleOneEdgeReverse() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(3, 2);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(4, vertices.get(0).Value);
+        Assertions.assertEquals(3, vertices.get(1).Value);
+    }
+
+
+    @Test
     public void testBreadthFirstSearchWhenAllEdgesReverse() {
         var graph = new SimpleGraph(6);
 
@@ -182,8 +317,6 @@ public class GraphTest {
         graph.AddEdge(3, 2);
         graph.AddEdge(1, 3);
         graph.AddEdge(3, 1);
-        graph.AddEdge(4, 1);
-        graph.AddEdge(1, 4);
         graph.AddEdge(4, 3);
         graph.AddEdge(3, 4);
         graph.AddEdge(3, 3);
@@ -195,8 +328,84 @@ public class GraphTest {
         Assertions.assertFalse(vertices.isEmpty());
         Assertions.assertEquals(6, vertices.get(0).Value);
         Assertions.assertEquals(5, vertices.get(1).Value);
-        Assertions.assertEquals(2, vertices.get(2).Value);
+        Assertions.assertEquals(4, vertices.get(2).Value);
         Assertions.assertEquals(1, vertices.get(3).Value);
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenMiddleTwoEdges() {
+        var graph = new SimpleGraph(7);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+        graph.AddVertex(7);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(1, 6);
+        graph.AddEdge(6, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(3, 6);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(4, vertices.get(0).Value);
+        Assertions.assertEquals(2, vertices.get(1).Value);
+        Assertions.assertEquals(7, vertices.get(2).Value);
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenMiddleTwoEdgesReverse() {
+        var graph = new SimpleGraph(7);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+        graph.AddVertex(7);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(1, 6);
+        graph.AddEdge(6, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(6, 3);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(7, vertices.get(0).Value);
+        Assertions.assertEquals(2, vertices.get(1).Value);
+        Assertions.assertEquals(4, vertices.get(2).Value);
     }
 
     @Test
@@ -220,8 +429,6 @@ public class GraphTest {
         graph.AddEdge(3, 2);
         graph.AddEdge(1, 3);
         graph.AddEdge(3, 1);
-        graph.AddEdge(4, 1);
-        graph.AddEdge(1, 4);
         graph.AddEdge(4, 3);
         graph.AddEdge(3, 4);
         graph.AddEdge(3, 3);
@@ -256,8 +463,6 @@ public class GraphTest {
         graph.AddEdge(3, 2);
         graph.AddEdge(1, 3);
         graph.AddEdge(3, 1);
-        graph.AddEdge(4, 1);
-        graph.AddEdge(1, 4);
         graph.AddEdge(4, 3);
         graph.AddEdge(3, 4);
         graph.AddEdge(3, 3);
@@ -342,11 +547,30 @@ public class GraphTest {
 
     @Test
     public void testBreadthFirstSearchShouldWhenRouteNotExists() {
-        var graph = new SimpleGraph(1);
+        var graph = new SimpleGraph(6);
 
         graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
 
-        var vertices = graph.BreadthFirstSearch(0, 1);
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(0, 5);
 
         Assertions.assertTrue(vertices.isEmpty());
     }

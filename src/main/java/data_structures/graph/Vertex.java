@@ -161,15 +161,15 @@ class SimpleGraph {
         if (edges.isEmpty()) {
             return new ArrayList<>();
         }
-        var lastEdge = findLastEdge(start, finish, edges);
+        var lastEdge = findLastEdge(finish, edges);
         var result = new ArrayList<>(List.of(lastEdge));
         Integer currStart = lastEdge.getV1();
         Integer currFinish = lastEdge.getV1();
 
         while (!start.equals(currStart)) {
             var edge = start > finish
-                    ? new Edge(++currStart, currFinish)
-                    : new Edge(--currStart, currFinish);
+                    ? new Edge(Math.abs(++currStart), currFinish)
+                    : new Edge(Math.abs(--currStart), currFinish);
         if (edges.contains(edge)) {
             result.add(edge);
             currStart = edge.getV1();
@@ -190,17 +190,8 @@ class SimpleGraph {
         return result;
     }
 
-    private Edge findLastEdge(Integer start, Integer finish, Set<Edge> edges) {
-        var edge = new Edge(start, finish);
-        while (!edges.contains(edge)) {
-            if (start > finish) {
-                edge = new Edge(--start, finish);
-                continue;
-            }
-            edge = new Edge(++start, finish);
-            ;
-        }
-        return edge;
+    private Edge findLastEdge(Integer finish, Set<Edge> edges) {
+        return edges.stream().filter(e -> finish.equals(e.getV2())).findFirst().get();
     }
 
     public Set<Integer> findAllNotHitLinkedVertexIndexes(Integer index) {
