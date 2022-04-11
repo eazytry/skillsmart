@@ -93,7 +93,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testBreadthFirstSearch() {
+    public void testBreadthFirstSearchWhenAllEdges() {
         var graph = new SimpleGraph(6);
 
         graph.AddVertex(1);
@@ -116,141 +116,6 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(0, 5);
 
         Assertions.assertFalse(vertices.isEmpty());
-    }
-
-    @Test
-    public void testBreadthFirstSearchReverse() {
-        var graph = new SimpleGraph(6);
-
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-        graph.AddVertex(3);
-        graph.AddVertex(4);
-        graph.AddVertex(5);
-        graph.AddVertex(6);
-
-        graph.AddEdge(0, 1);
-        graph.AddEdge(1, 0);
-        graph.AddEdge(0, 2);
-        graph.AddEdge(2, 0);
-        graph.AddEdge(0, 3);
-        graph.AddEdge(3, 0);
-        graph.AddEdge(2, 3);
-        graph.AddEdge(3, 2);
-        graph.AddEdge(1, 3);
-        graph.AddEdge(3, 1);
-        graph.AddEdge(4, 1);
-        graph.AddEdge(1, 4);
-        graph.AddEdge(4, 3);
-        graph.AddEdge(3, 4);
-        graph.AddEdge(3, 3);
-        graph.AddEdge(4, 5);
-        graph.AddEdge(5, 4);
-
-        var vertices = graph.BreadthFirstSearch(5, 0);
-
-        Assertions.assertFalse(vertices.isEmpty());
-        Assertions.assertEquals(6, vertices.get(0).Value);
-        Assertions.assertEquals(5, vertices.get(1).Value);
-        Assertions.assertEquals(2, vertices.get(2).Value);
-        Assertions.assertEquals(1, vertices.get(3).Value);
-    }
-
-    @Test
-    public void testBreadthFirstSearchShouldReturnTwoVertexes() {
-        var graph = new SimpleGraph(6);
-
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-        graph.AddVertex(3);
-        graph.AddVertex(4);
-        graph.AddVertex(5);
-        graph.AddVertex(6);
-
-        graph.AddEdge(0, 1);
-        graph.AddEdge(0, 2);
-        graph.AddEdge(0, 3);
-        graph.AddEdge(2, 3);
-        graph.AddEdge(1, 3);
-        graph.AddEdge(1, 4);
-        graph.AddEdge(3, 4);
-        graph.AddEdge(3, 3);
-        graph.AddEdge(4, 5);
-
-        var vertices = graph.BreadthFirstSearch(4, 5);
-
-        Assertions.assertFalse(vertices.isEmpty());
-    }
-
-    @Test
-    public void testBreadthFirstSearchShouldReturnTwoVertexesWhenOneEdgeExists() {
-        var graph = new SimpleGraph(2);
-
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-
-        graph.AddEdge(0, 1);
-
-        var vertices = graph.BreadthFirstSearch(0, 1);
-
-        Assertions.assertFalse(vertices.isEmpty());
-        Assertions.assertEquals(1, vertices.get(0).Value);
-        Assertions.assertEquals(2, vertices.get(1).Value);
-    }
-
-
-    @Test
-    public void testBreadthFirstSearchShouldReturnEmptyWhenOneVertexExists() {
-        var graph = new SimpleGraph(1);
-
-        graph.AddVertex(1);
-
-        var vertices = graph.BreadthFirstSearch(0, 1);
-
-        Assertions.assertTrue(vertices.isEmpty());
-    }
-
-    @Test
-    public void testBreadthFirstSearchShouldReturnTwoVertexesWhenTwoEdgeExists() {
-        var graph = new SimpleGraph(3);
-
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-        graph.AddVertex(3);
-
-        graph.AddEdge(0, 1);
-        graph.AddEdge(1, 2);
-
-        var vertices = graph.BreadthFirstSearch(1, 2);
-
-        Assertions.assertFalse(vertices.isEmpty());
-        Assertions.assertEquals(2, vertices.get(0).Value);
-        Assertions.assertEquals(3, vertices.get(1).Value);
-    }
-
-    @Test
-    public void testBreadthFirstSearchWhenEmpty() {
-        var graph = new SimpleGraph(6);
-
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-        graph.AddVertex(3);
-        graph.AddVertex(4);
-        graph.AddVertex(5);
-        graph.AddVertex(6);
-
-        graph.AddEdge(0, 1);
-        graph.AddEdge(0, 2);
-        graph.AddEdge(0, 3);
-        graph.AddEdge(2, 3);
-        graph.AddEdge(1, 3);
-        graph.AddEdge(1, 4);
-        graph.AddEdge(3, 4);
-        graph.AddEdge(3, 3);
-
-        var vertices = graph.BreadthFirstSearch(0, 5);
-
-        Assertions.assertTrue(vertices.isEmpty());
     }
 
     @Test
@@ -292,6 +157,161 @@ public class GraphTest {
         graph.m_adjacency[1][3] = 1;
 
         var vertices = graph.DepthFirstSearch(0, 3);
+
+        Assertions.assertTrue(vertices.isEmpty());
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenAllEdgesReverse() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 1);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(5, 0);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(6, vertices.get(0).Value);
+        Assertions.assertEquals(5, vertices.get(1).Value);
+        Assertions.assertEquals(2, vertices.get(2).Value);
+        Assertions.assertEquals(1, vertices.get(3).Value);
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenLastTwoVertexes() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 1);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(4, 5);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(5, vertices.get(0).Value);
+        Assertions.assertEquals(6, vertices.get(1).Value);
+
+    }
+    @Test
+    public void testBreadthFirstSearchWhenLastTwoVertexesReverse() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 1);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(5, 4);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(6, vertices.get(0).Value);
+        Assertions.assertEquals(5, vertices.get(1).Value);
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenOneEdgeExists() {
+        var graph = new SimpleGraph(2);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+
+        graph.AddEdge(0, 1);
+
+        var vertices = graph.BreadthFirstSearch(0, 1);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(1, vertices.get(0).Value);
+        Assertions.assertEquals(2, vertices.get(1).Value);
+    }
+
+
+    @Test
+    public void testBreadthFirstSearchWhenOneEdgeExistsReverse() {
+        var graph = new SimpleGraph(2);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+
+        graph.AddEdge(0, 1);
+
+        var vertices = graph.BreadthFirstSearch(1, 0);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.get(0).Value);
+        Assertions.assertEquals(1, vertices.get(1).Value);
+    }
+
+
+    @Test
+    public void testBreadthFirstSearchShouldWhenRouteNotExists() {
+        var graph = new SimpleGraph(1);
+
+        graph.AddVertex(1);
+
+        var vertices = graph.BreadthFirstSearch(0, 1);
 
         Assertions.assertTrue(vertices.isEmpty());
     }
