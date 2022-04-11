@@ -233,8 +233,8 @@ public class GraphTest {
         Assertions.assertFalse(vertices.isEmpty());
         Assertions.assertEquals(5, vertices.get(0).Value);
         Assertions.assertEquals(6, vertices.get(1).Value);
-
     }
+
     @Test
     public void testBreadthFirstSearchWhenLastTwoVertexesReverse() {
         var graph = new SimpleGraph(6);
@@ -269,6 +269,41 @@ public class GraphTest {
         Assertions.assertFalse(vertices.isEmpty());
         Assertions.assertEquals(6, vertices.get(0).Value);
         Assertions.assertEquals(5, vertices.get(1).Value);
+    }
+
+    @Test
+    public void testBreadthFirstSearchWhenRecursive() {
+        var graph = new SimpleGraph(6);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(1, 0);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(2, 0);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(3, 0);
+        graph.AddEdge(2, 3);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(4, 1);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(4, 3);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
+
+        var vertices = graph.BreadthFirstSearch(3, 3);
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(4, vertices.get(0).Value);
     }
 
     @Test
