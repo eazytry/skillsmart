@@ -189,6 +189,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(0, 3);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.size());
         Assertions.assertEquals(1, vertices.get(0).Value);
         Assertions.assertEquals(4, vertices.get(1).Value);
     }
@@ -223,6 +224,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(3, 0);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.size());
         Assertions.assertEquals(4, vertices.get(0).Value);
         Assertions.assertEquals(1, vertices.get(1).Value);
     }
@@ -257,6 +259,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(2, 3);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.size());
         Assertions.assertEquals(3, vertices.get(0).Value);
         Assertions.assertEquals(4, vertices.get(1).Value);
     }
@@ -291,6 +294,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(3, 2);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.size());
         Assertions.assertEquals(4, vertices.get(0).Value);
         Assertions.assertEquals(3, vertices.get(1).Value);
     }
@@ -326,6 +330,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(5, 0);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(4, vertices.size());
         Assertions.assertEquals(6, vertices.get(0).Value);
         Assertions.assertEquals(5, vertices.get(1).Value);
         Assertions.assertEquals(4, vertices.get(2).Value);
@@ -365,6 +370,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(3, 6);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(3, vertices.size());
         Assertions.assertEquals(4, vertices.get(0).Value);
         Assertions.assertEquals(2, vertices.get(1).Value);
         Assertions.assertEquals(7, vertices.get(2).Value);
@@ -403,6 +409,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(6, 3);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(3, vertices.size());
         Assertions.assertEquals(7, vertices.get(0).Value);
         Assertions.assertEquals(2, vertices.get(1).Value);
         Assertions.assertEquals(4, vertices.get(2).Value);
@@ -438,6 +445,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(4, 5);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.size());
         Assertions.assertEquals(5, vertices.get(0).Value);
         Assertions.assertEquals(6, vertices.get(1).Value);
     }
@@ -472,6 +480,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(5, 4);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.size());
         Assertions.assertEquals(6, vertices.get(0).Value);
         Assertions.assertEquals(5, vertices.get(1).Value);
     }
@@ -508,6 +517,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(3, 3);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.size());
         Assertions.assertEquals(4, vertices.get(0).Value);
     }
 
@@ -523,6 +533,7 @@ public class GraphTest {
         var vertices = graph.BreadthFirstSearch(0, 1);
 
         Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(2, vertices.size());
         Assertions.assertEquals(1, vertices.get(0).Value);
         Assertions.assertEquals(2, vertices.get(1).Value);
     }
