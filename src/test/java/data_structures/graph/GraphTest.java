@@ -221,8 +221,7 @@ public class GraphTest {
 
         Assertions.assertFalse(vertices.isEmpty());
         Assertions.assertEquals(2, vertices.size());
-        Assertions.assertEquals(1, graph.m_adjacency[0][3]);
-        Assertions.assertEquals(1, graph.m_adjacency[3][0]);
+        Assertions.assertTrue(graph.IsEdge(3, 0));
         Assertions.assertEquals(20, vertices.get(0).Value);
         Assertions.assertEquals(10, vertices.get(1).Value);
     }
