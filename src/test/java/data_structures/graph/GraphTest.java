@@ -195,13 +195,14 @@ public class GraphTest {
 
     @Test
     public void testBreadthFirstSearchWhenFirstOneEdgeReverse() {
-        var graph = new SimpleGraph(5);
+        var graph = new SimpleGraph(6);
 
         graph.AddVertex(10);
         graph.AddVertex(40);
         graph.AddVertex(30);
         graph.AddVertex(20);
         graph.AddVertex(5);
+        graph.AddVertex(4);
 
         graph.AddEdge(0, 1);
         graph.AddEdge(1, 0);
@@ -216,6 +217,8 @@ public class GraphTest {
         graph.AddEdge(4, 3);
         graph.AddEdge(3, 4);
         graph.AddEdge(3, 3);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 4);
 
         var vertices = graph.BreadthFirstSearch(3, 0);
 
@@ -416,12 +419,12 @@ public class GraphTest {
     public void testBreadthFirstSearchWhenLastTwoVertexes() {
         var graph = new SimpleGraph(6);
 
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-        graph.AddVertex(3);
-        graph.AddVertex(4);
+        graph.AddVertex(10);
+        graph.AddVertex(40);
+        graph.AddVertex(30);
+        graph.AddVertex(20);
         graph.AddVertex(5);
-        graph.AddVertex(6);
+        graph.AddVertex(4);
 
         graph.AddEdge(0, 1);
         graph.AddEdge(1, 0);
@@ -443,20 +446,21 @@ public class GraphTest {
 
         Assertions.assertFalse(vertices.isEmpty());
         Assertions.assertEquals(2, vertices.size());
+        Assertions.assertTrue(graph.IsEdge(4, 5));
         Assertions.assertEquals(5, vertices.get(0).Value);
-        Assertions.assertEquals(6, vertices.get(1).Value);
+        Assertions.assertEquals(4, vertices.get(1).Value);
     }
 
     @Test
     public void testBreadthFirstSearchWhenLastTwoVertexesReverse() {
         var graph = new SimpleGraph(6);
 
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-        graph.AddVertex(3);
-        graph.AddVertex(4);
+        graph.AddVertex(10);
+        graph.AddVertex(40);
+        graph.AddVertex(30);
+        graph.AddVertex(20);
         graph.AddVertex(5);
-        graph.AddVertex(6);
+        graph.AddVertex(4);
 
         graph.AddEdge(0, 1);
         graph.AddEdge(1, 0);
@@ -478,7 +482,8 @@ public class GraphTest {
 
         Assertions.assertFalse(vertices.isEmpty());
         Assertions.assertEquals(2, vertices.size());
-        Assertions.assertEquals(6, vertices.get(0).Value);
+        Assertions.assertTrue(graph.IsEdge(5, 4));
+        Assertions.assertEquals(4, vertices.get(0).Value);
         Assertions.assertEquals(5, vertices.get(1).Value);
     }
 
