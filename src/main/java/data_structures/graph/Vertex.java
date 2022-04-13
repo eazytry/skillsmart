@@ -133,6 +133,7 @@ class SimpleGraph {
         if (VFrom == VTo && m_adjacency[VFrom][VTo] == 1) {
             return new ArrayList<>(List.of(vertex[VFrom], vertex[VTo]));
         }
+        clearHits();
         var edges = findAllEdges(VTo, new LinkedList<>(List.of(VFrom)), new HashSet<>());
         var route = findRoute(VFrom, VTo, edges);
         return reverseRoute(route);
