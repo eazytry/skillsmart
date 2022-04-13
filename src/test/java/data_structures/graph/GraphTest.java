@@ -161,14 +161,13 @@ public class GraphTest {
 
     @Test
     public void testBreadthFirstSearchWhenFirstOneEdge() {
-        var graph = new SimpleGraph(6);
+        var graph = new SimpleGraph(5);
 
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-        graph.AddVertex(3);
-        graph.AddVertex(4);
+        graph.AddVertex(10);
+        graph.AddVertex(40);
+        graph.AddVertex(30);
+        graph.AddVertex(20);
         graph.AddVertex(5);
-        graph.AddVertex(6);
 
         graph.AddEdge(0, 1);
         graph.AddEdge(1, 0);
@@ -183,27 +182,26 @@ public class GraphTest {
         graph.AddEdge(4, 3);
         graph.AddEdge(3, 4);
         graph.AddEdge(3, 3);
-        graph.AddEdge(4, 5);
-        graph.AddEdge(5, 4);
 
         var vertices = graph.BreadthFirstSearch(0, 3);
 
         Assertions.assertFalse(vertices.isEmpty());
         Assertions.assertEquals(2, vertices.size());
-        Assertions.assertEquals(1, vertices.get(0).Value);
-        Assertions.assertEquals(4, vertices.get(1).Value);
+        Assertions.assertEquals(1, graph.m_adjacency[0][3]);
+        Assertions.assertEquals(1, graph.m_adjacency[3][0]);
+        Assertions.assertEquals(10, vertices.get(0).Value);
+        Assertions.assertEquals(20, vertices.get(1).Value);
     }
 
     @Test
     public void testBreadthFirstSearchWhenFirstOneEdgeReverse() {
-        var graph = new SimpleGraph(6);
+        var graph = new SimpleGraph(5);
 
-        graph.AddVertex(1);
-        graph.AddVertex(2);
-        graph.AddVertex(3);
-        graph.AddVertex(4);
+        graph.AddVertex(10);
+        graph.AddVertex(40);
+        graph.AddVertex(30);
+        graph.AddVertex(20);
         graph.AddVertex(5);
-        graph.AddVertex(6);
 
         graph.AddEdge(0, 1);
         graph.AddEdge(1, 0);
@@ -218,15 +216,15 @@ public class GraphTest {
         graph.AddEdge(4, 3);
         graph.AddEdge(3, 4);
         graph.AddEdge(3, 3);
-        graph.AddEdge(4, 5);
-        graph.AddEdge(5, 4);
 
         var vertices = graph.BreadthFirstSearch(3, 0);
 
         Assertions.assertFalse(vertices.isEmpty());
         Assertions.assertEquals(2, vertices.size());
-        Assertions.assertEquals(4, vertices.get(0).Value);
-        Assertions.assertEquals(1, vertices.get(1).Value);
+        Assertions.assertEquals(1, graph.m_adjacency[0][3]);
+        Assertions.assertEquals(1, graph.m_adjacency[3][0]);
+        Assertions.assertEquals(20, vertices.get(0).Value);
+        Assertions.assertEquals(10, vertices.get(1).Value);
     }
 
     @Test
