@@ -557,7 +557,6 @@ public class GraphTest {
         Assertions.assertEquals(1, vertices.get(1).Value);
     }
 
-
     @Test
     public void testBreadthFirstSearchShouldWhenRouteNotExists() {
         var graph = new SimpleGraph(6);
@@ -587,4 +586,75 @@ public class GraphTest {
 
         Assertions.assertTrue(vertices.isEmpty());
     }
+
+    @Test
+    public void testWeakVertices() {
+        var graph = new SimpleGraph(9);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+        graph.AddVertex(4);
+        graph.AddVertex(5);
+        graph.AddVertex(6);
+        graph.AddVertex(7);
+        graph.AddVertex(8);
+        graph.AddVertex(9);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 3);
+        graph.AddEdge(0, 4);
+        graph.AddEdge(1, 5);
+        graph.AddEdge(2, 5);
+        graph.AddEdge(2, 6);
+        graph.AddEdge(3, 7);
+        graph.AddEdge(3, 4);
+        graph.AddEdge(4, 7);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(5, 6);
+        graph.AddEdge(6, 8);
+
+        var vertices = graph.WeakVertices();
+
+        Assertions.assertFalse(vertices.isEmpty());
+    }
+
+    @Test
+    public void testWeakVerticesWhenOneTriangle() {
+        var graph = new SimpleGraph(3);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 2);
+
+        var vertices = graph.WeakVertices();
+
+        Assertions.assertFalse(vertices.isEmpty());
+        Assertions.assertEquals(3, vertices.size());
+        Assertions.assertTrue(vertices.stream().anyMatch(v -> v.Value == 1));
+        Assertions.assertTrue(vertices.stream().anyMatch(v -> v.Value == 2));
+        Assertions.assertTrue(vertices.stream().anyMatch(v -> v.Value == 3));
+    }
+
+    @Test
+    public void testWeakVerticesWhenEmpty() {
+        var graph = new SimpleGraph(3);
+
+        graph.AddVertex(1);
+        graph.AddVertex(2);
+        graph.AddVertex(3);
+
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(1, 2);
+
+        var vertices = graph.WeakVertices();
+
+        Assertions.assertTrue(vertices.isEmpty());
+    }
+
+
 }

@@ -2,6 +2,7 @@ package data_structures.graph;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Vertex {
     public int Value;
@@ -171,14 +172,14 @@ class SimpleGraph {
             var edge = start > finish
                     ? new Edge(Math.abs(++currStart), currFinish)
                     : new Edge(Math.abs(--currStart), currFinish);
-        if (edges.contains(edge)) {
-            result.add(edge);
-            currStart = edge.getV1();
-            currFinish = edge.getV1();
+            if (edges.contains(edge)) {
+                result.add(edge);
+                currStart = edge.getV1();
+                currFinish = edge.getV1();
+            }
         }
-    }
         return result;
-}
+    }
 
     private ArrayList<Vertex> reverseRoute(List<Edge> edges) {
         if (edges.isEmpty()) {
@@ -205,39 +206,79 @@ class SimpleGraph {
         return indexes;
     }
 
-private static class Edge {
-    private final Integer v1;
-    private final Integer v2;
+    public ArrayList<Vertex> WeakVertices() {
+        var result = Stream.iterate(0, i -> i < vertex.length, i -> i + 1)
+                .collect(Collectors.toCollection(HashSet::new));
 
-    public Edge(Integer v1, Integer v2) {
-        this.v1 = v1;
-        this.v2 = v2;
+        for (int i = 0; i < vertex.length; i++) {
+            var linkedVertex = findAllLinkedVertex(i);
+            var triangleParts = findTriangleParts(linkedVertex);
+            if (!triangleParts.isEmpty()) {
+                result.remove(i);
+            }
+            result.removeAll(triangleParts);
+        }
+        return result.stream().map(i -> vertex[i]).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public Integer getV1() {
-        return v1;
-    }
-
-    public Integer getV2() {
-        return v2;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Edge edge = (Edge) o;
-
-        if (v1 != null ? !v1.equals(edge.v1) : edge.v1 != null) return false;
-        return v2 != null ? v2.equals(edge.v2) : edge.v2 == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = v1 != null ? v1.hashCode() : 0;
-        result = 31 * result + (v2 != null ? v2.hashCode() : 0);
+    private List<Integer> findAllLinkedVertex(int index) {
+        var result = new ArrayList<Integer>();
+        for (int i = 0; i < vertex.length; i++) {
+            if (m_adjacency[i][index] == 1 || m_adjacency[index][i] == 1) {
+                result.add(i);
+            }
+        }
         return result;
     }
-}
+
+    private Set<Integer> findTriangleParts(List<Integer> candidates) {
+        var linkedCandidatesIndexes = new HashSet<Integer>();
+        for (int i = 0; i < candidates.size(); i++) {
+            for (int j = i; j < candidates.size(); j++) {
+                if (m_adjacency[candidates.get(i)][candidates.get(j)] == 1
+                        || m_adjacency[candidates.get(j)][candidates.get(i)] == 1) {
+                    linkedCandidatesIndexes.add(candidates.get(i));
+                    linkedCandidatesIndexes.add(candidates.get(j));
+                }
+            }
+        }
+        return candidates.stream().filter(linkedCandidatesIndexes::contains).collect(Collectors.toSet());
+    }
+
+
+    private static class Edge {
+        private final Integer v1;
+        private final Integer v2;
+
+        public Edge(Integer v1, Integer v2) {
+            this.v1 = v1;
+            this.v2 = v2;
+        }
+
+        public Integer getV1() {
+            return v1;
+        }
+
+        public Integer getV2() {
+            return v2;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Edge edge = (Edge) o;
+
+            if (v1 != null ? !v1.equals(edge.v1) : edge.v1 != null) return false;
+            return v2 != null ? v2.equals(edge.v2) : edge.v2 == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = v1 != null ? v1.hashCode() : 0;
+            result = 31 * result + (v2 != null ? v2.hashCode() : 0);
+            return result;
+        }
+    }
 }
