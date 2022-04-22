@@ -1,0 +1,28 @@
+6.1:
+
+cookie - userPermissions
+sum - sumOfSalaries
+personsCount - scoredPersonsCount
+maxAmount - approvedAmount
+manual - isChangedManual
+
+6.2:
+
+participantsList
+bootstrapPriorityQueue
+applicationToParticipantsMap
+jwtCheckFilter
+
+6.3:
+
+applicationParticipants
+applicationOffers
+scoringResult
+
+6.4:
+
+applicationParticipants - appParticipants
+applicationToParticipantsMap - appToParticipantsMap
+bootstrapPriorityQueue - bootPriorityQueue
+numberOfIncomesWithAmount - incomesCount
+dictionaryConfigurationProperties - dictConfigProps
