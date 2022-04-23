@@ -36,18 +36,18 @@ class BalancedBST {
         if (a.length == 0) {
             return null;
         }
-        var currentKeyIndex = a.length / 2;
-        BSTNode current = new BSTNode(a[currentKeyIndex], parent);
-        current.Level = level;
+        var foundNodeIndex = a.length / 2;
+        BSTNode foundNode = new BSTNode(a[foundNodeIndex], parent);
+        foundNode.Level = level;
         if (this.Root == null) {
-            this.Root = current;
+            this.Root = foundNode;
         }
         if (a.length > 1) {
-            current.LeftChild = findNode(Arrays.copyOfRange(a, 0, currentKeyIndex), current, level + 1);
-            current.RightChild = findNode(Arrays.copyOfRange(a, currentKeyIndex + 1, a.length), current, level + 1);
+            foundNode.LeftChild = findNode(Arrays.copyOfRange(a, 0, foundNodeIndex), foundNode, level + 1);
+            foundNode.RightChild = findNode(Arrays.copyOfRange(a, foundNodeIndex + 1, a.length), foundNode, level + 1);
         }
 
-        return current;
+        return foundNode;
     }
 
     public boolean IsBalanced(BSTNode root_node) {

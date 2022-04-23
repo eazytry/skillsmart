@@ -18,13 +18,13 @@ public class Stack<T> {
     public T pop() {
         if (count == 0)
             return null;
-        Node<T> valNode = this.head;
+        Node<T> headNode = this.head;
         if (count == 1) {
             this.head = null;
             this.tail = null;
         }
-        T val = valNode.getT();
-        this.head = valNode.nextNode;
+        T val = headNode.getT();
+        this.head = headNode.nextNode;
         count--;
         return val;
     }

@@ -83,14 +83,13 @@ class Heap {
 
     private void Add(int key, int index) {
         HeapArray[index - 1] = key;
-        int currIndex = index;
-        int rootIndex = Math.max(currIndex / 2 - 1, 0);
-        while (HeapArray[rootIndex] < HeapArray[currIndex - 1]) {
+        int rootIndex = Math.max(index / 2 - 1, 0);
+        while (HeapArray[rootIndex] < HeapArray[index - 1]) {
             int tmp = HeapArray[rootIndex];
-            HeapArray[rootIndex] = HeapArray[currIndex - 1];
-            HeapArray[currIndex - 1] = tmp;
-            currIndex = currIndex / 2;
-            rootIndex = Math.max(currIndex / 2 - 1, 0);
+            HeapArray[rootIndex] = HeapArray[index - 1];
+            HeapArray[index - 1] = tmp;
+            index = index / 2;
+            rootIndex = Math.max(index / 2 - 1, 0);
         }
     }
 

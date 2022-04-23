@@ -92,15 +92,15 @@ class SimpleTree<T> {
     }
 
     private List<SimpleTreeNode<T>> findLeafs(SimpleTreeNode<T> node) {
-        List<SimpleTreeNode<T>> nodes = new ArrayList<>();
+        List<SimpleTreeNode<T>> nodeLeafsList = new ArrayList<>();
         if (node.Children == null || node.Children.isEmpty()) {
-            nodes.add(node);
-            return nodes;
+            nodeLeafsList.add(node);
+            return nodeLeafsList;
         }
         for (SimpleTreeNode<T> subNode : node.Children) {
-            nodes.addAll(findLeafs(subNode));
+            nodeLeafsList.addAll(findLeafs(subNode));
         }
-        return nodes;
+        return nodeLeafsList;
     }
 
     public ArrayList<T> EvenTrees() {

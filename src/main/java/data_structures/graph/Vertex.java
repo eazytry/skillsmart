@@ -144,17 +144,17 @@ class SimpleGraph {
         if (queue.isEmpty()) {
             return new HashSet<>();
         }
-        var polled = queue.poll();
+        var polledIndex = queue.poll();
 
-        if (polled == VTo) {
+        if (polledIndex == VTo) {
             return new HashSet<>(edges);
         }
 
-        findAllNotHitLinkedVertexIndexes(polled)
+        findAllNotHitLinkedVertexIndexes(polledIndex)
                 .forEach(index -> {
                     vertex[index].Hit = true;
                     queue.offer(index);
-                    edges.add(new Edge(polled, index));
+                    edges.add(new Edge(polledIndex, index));
                 });
         return findAllEdges(VTo, queue, edges);
     }
@@ -165,8 +165,8 @@ class SimpleGraph {
         }
         var lastEdge = findLastEdge(finish, edges);
         var result = new ArrayList<>(List.of(lastEdge));
-        Integer currStart = lastEdge.getV1();
-        Integer currFinish = lastEdge.getV1();
+        Integer currStart = lastEdge.getFromIndex();
+        Integer currFinish = lastEdge.getFromIndex();
 
         while (!start.equals(currStart)) {
             var edge = start > finish
@@ -174,8 +174,8 @@ class SimpleGraph {
                     : new Edge(Math.abs(--currStart), currFinish);
             if (edges.contains(edge)) {
                 result.add(edge);
-                currStart = edge.getV1();
-                currFinish = edge.getV1();
+                currStart = edge.getFromIndex();
+                currFinish = edge.getFromIndex();
             }
         }
         return result;
@@ -185,50 +185,50 @@ class SimpleGraph {
         if (edges.isEmpty()) {
             return new ArrayList<>();
         }
-        var result = new ArrayList<>(List.of(vertex[edges.get(edges.size() - 1).getV1()]));
+        var result = new ArrayList<>(List.of(vertex[edges.get(edges.size() - 1).getFromIndex()]));
         for (int i = edges.size() - 1; i >= 0; i--) {
-            result.add(vertex[edges.get(i).getV2()]);
+            result.add(vertex[edges.get(i).getToIndex()]);
         }
         return result;
     }
 
     private Edge findLastEdge(Integer finish, Set<Edge> edges) {
-        return edges.stream().filter(e -> finish.equals(e.getV2())).findFirst().get();
+        return edges.stream().filter(e -> finish.equals(e.getToIndex())).findFirst().get();
     }
 
     public Set<Integer> findAllNotHitLinkedVertexIndexes(Integer index) {
-        Set<Integer> indexes = new HashSet<>();
+        Set<Integer> notHitLinkedIndexSet = new HashSet<>();
         for (int i = 0; i < vertex.length; i++) {
             if ((m_adjacency[i][index] == 1 || m_adjacency[index][i] == 1) && !vertex[i].Hit) {
-                indexes.add(i);
+                notHitLinkedIndexSet.add(i);
             }
         }
-        return indexes;
+        return notHitLinkedIndexSet;
     }
 
     public ArrayList<Vertex> WeakVertices() {
-        var result = Stream.iterate(0, i -> i < vertex.length, i -> i + 1)
+        var weakVerticesSet = Stream.iterate(0, i -> i < vertex.length, i -> i + 1)
                 .collect(Collectors.toCollection(HashSet::new));
 
         for (int i = 0; i < vertex.length; i++) {
-            var linkedVertex = findAllLinkedVertex(i);
-            var triangleParts = findTriangleParts(linkedVertex);
-            if (!triangleParts.isEmpty()) {
-                result.remove(i);
+            var linkedVertexList = findAllLinkedVertex(i);
+            var trianglePartsSet = findTriangleParts(linkedVertexList);
+            if (!trianglePartsSet.isEmpty()) {
+                weakVerticesSet.remove(i);
             }
-            result.removeAll(triangleParts);
+            weakVerticesSet.removeAll(trianglePartsSet);
         }
-        return result.stream().map(i -> vertex[i]).collect(Collectors.toCollection(ArrayList::new));
+        return weakVerticesSet.stream().map(i -> vertex[i]).collect(Collectors.toCollection(ArrayList::new));
     }
 
     private List<Integer> findAllLinkedVertex(int index) {
-        var result = new ArrayList<Integer>();
+        var linkedVertexIndexList = new ArrayList<Integer>();
         for (int i = 0; i < vertex.length; i++) {
             if (m_adjacency[i][index] == 1 || m_adjacency[index][i] == 1) {
-                result.add(i);
+                linkedVertexIndexList.add(i);
             }
         }
-        return result;
+        return linkedVertexIndexList;
     }
 
     private Set<Integer> findTriangleParts(List<Integer> candidates) {
@@ -245,22 +245,21 @@ class SimpleGraph {
         return candidates.stream().filter(linkedCandidatesIndexes::contains).collect(Collectors.toSet());
     }
 
-
     private static class Edge {
-        private final Integer v1;
-        private final Integer v2;
+        private final Integer fromIndex;
+        private final Integer toIndex;
 
-        public Edge(Integer v1, Integer v2) {
-            this.v1 = v1;
-            this.v2 = v2;
+        public Edge(Integer fromIndex, Integer toIndex) {
+            this.fromIndex = fromIndex;
+            this.toIndex = toIndex;
         }
 
-        public Integer getV1() {
-            return v1;
+        public Integer getFromIndex() {
+            return fromIndex;
         }
 
-        public Integer getV2() {
-            return v2;
+        public Integer getToIndex() {
+            return toIndex;
         }
 
         @Override
@@ -270,14 +269,14 @@ class SimpleGraph {
 
             Edge edge = (Edge) o;
 
-            if (v1 != null ? !v1.equals(edge.v1) : edge.v1 != null) return false;
-            return v2 != null ? v2.equals(edge.v2) : edge.v2 == null;
+            if (fromIndex != null ? !fromIndex.equals(edge.fromIndex) : edge.fromIndex != null) return false;
+            return toIndex != null ? toIndex.equals(edge.toIndex) : edge.toIndex == null;
         }
 
         @Override
         public int hashCode() {
-            int result = v1 != null ? v1.hashCode() : 0;
-            result = 31 * result + (v2 != null ? v2.hashCode() : 0);
+            int result = fromIndex != null ? fromIndex.hashCode() : 0;
+            result = 31 * result + (toIndex != null ? toIndex.hashCode() : 0);
             return result;
         }
     }

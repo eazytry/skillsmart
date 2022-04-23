@@ -51,12 +51,13 @@ public class PowerSet {
     }
 
     public boolean remove(String value) {
-        OptionalInt containsOpt = Arrays.stream(searchIndexSequence(value))
+        OptionalInt valueIndexOpt = Arrays.stream(searchIndexSequence(value))
                 .filter(i -> value.equals(values[i]))
                 .findFirst();
-        if (!containsOpt.isPresent())
+        if (valueIndexOpt.isEmpty()) {
             return false;
-        values[containsOpt.getAsInt()] = null;
+        }
+        values[valueIndexOpt.getAsInt()] = null;
         size--;
         return true;
     }
