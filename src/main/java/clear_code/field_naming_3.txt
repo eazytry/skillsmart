@@ -1,0 +1,30 @@
+7.1:
+
+isFound - found
+isEquals - equals
+hasNoJob - hasJob
+hasPermissions - permitted
+isValid - valid
+
+7.2:
+
+found
+equals
+permitted
+valid
+
+7.3:
+
+i, j - startVertexIndex, finishVertexIndex
+i, j - depthLevel, elementsCount
+
+7.4:
+
+start, finish
+intersection, difference
+
+7.5:
+
+Использовал tmp для временного хранилища с целью поменять местами элементы массива,
+ можно было убрать с помощью побитовых операций или сложения/вычитания
+
