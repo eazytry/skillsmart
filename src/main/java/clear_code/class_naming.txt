@@ -1,0 +1,34 @@
+3.1:
+
+- Address -> AddressResponse (так назывался класс-контейнер для ответа jrpc сервиса, что не отражало действительность
+т.к. название Address подразумевает что объект класса хранит адрес, а не технические поля jrpc ответа)
+
+- AddressData -> Address (В связи с тем что название Address было уже занято, сделали AddressData, что сбивало с толку,
+ когда смотришь на два этих класса рядом)
+
+- AddressDataMetro -> NearestStation (Класс используется для описания ближайших станций метро к клиенту и расстояния
+ до адреса, его предыдущее название абсолютно не отражало цели его существования)
+
+- ChildrenInfo -> Children (излишнее слово Info)
+
+- ProcessedAddress -> ProcessAddressResponse (класс-контейнер, название не отражает суть класса)
+
+- ProcessedAddressData -> ProcessAddressResponse.Address (я бы сделал inner класс, т.к. Address - довольно
+ распространенное название и использование inner класса я считаю в этом случае более лаконичным)
+
+3.2
+
+- processFullApplication -> fullScore (слово process и название метода в целом не отражает его смысла. У заявки есть
+полный скоринг и короткий скоринг, логичнее было бы назвать fullScore)
+
+- hasRecognized -> hasRecognizedPerson
+
+- uploadDocument -> sendDocument (в проекте уже используется send, что аналогично upload)
+
+- fetchDocument -> getDocument (в проекте уже используется get)
+
+- validatePerson -> filterPerson
+
+- containsDisableChild -> hasDisableChild (есть ли ребенок с инвалидностью)
+
+- downloadPhoto -> getPhoto
