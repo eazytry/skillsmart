@@ -1,0 +1,12 @@
+1. findTriangleParts -> findTriangleVertexIndexes -> метод, который возвращает индексы вершин, являющиеся частью хотя-бы одного треугольника
+2. findAllLinkedVertex -> findLinkedVertexIndexes -> метод, который возвращает индексы связанных вершин с переданным индексом вершин
+3. getPostfix -> generatePostfix - в методе находится логка генерации постфикса ГОСТ образца по переданному в него uuid
+4. fill -> fillApplication, fillPersons, etc - один большой метод, который заполняет много всего, стоит разбить на разные части
+5. getComplianceErrorByCode -> from - это статический фабричный метод, находящийся в перечислении ComplianceError, в связи с чем метод можно назвать просто from
+6. docNumberToGostUuidMap -> getDocNumberToGostUuidMap - не было глагола в названии метода
+7. filter -> filterBy ... -> Огромный метод, у которого было много ответственности. Название отражающее его суть не уместилось бы и на 5 строчках, поэтому проще его разбить
+8. getLastEvent -> getLastEventByDate -> не понятно было по какому принципу вычисляется "last"
+9. checkState -> isInCorrectStatus - название метода не отражало что именно он проверял
+10. getRelatedStatuses -> getPossibleStatuses - имелось ввиду статусы, в которые можно перевести сущность, related тут не подходило
+11. processFullApplication -> fullScore - метод отправки заявки на полный скоринг
+12. validate -> validatePersons - метод валидации участников сделки в процессе полного скоринга. Не было понятно кого он валидирует

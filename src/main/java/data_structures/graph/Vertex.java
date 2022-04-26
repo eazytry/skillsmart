@@ -181,13 +181,13 @@ class SimpleGraph {
         return result;
     }
 
-    private ArrayList<Vertex> reverseRoute(List<Edge> edges) {
-        if (edges.isEmpty()) {
+    private ArrayList<Vertex> reverseRoute(List<Edge> route) {
+        if (route.isEmpty()) {
             return new ArrayList<>();
         }
-        var result = new ArrayList<>(List.of(vertex[edges.get(edges.size() - 1).getFromIndex()]));
-        for (int i = edges.size() - 1; i >= 0; i--) {
-            result.add(vertex[edges.get(i).getToIndex()]);
+        var result = new ArrayList<>(List.of(vertex[route.get(route.size() - 1).getFromIndex()]));
+        for (int i = route.size() - 1; i >= 0; i--) {
+            result.add(vertex[route.get(i).getToIndex()]);
         }
         return result;
     }
@@ -211,8 +211,8 @@ class SimpleGraph {
                 .collect(Collectors.toCollection(HashSet::new));
 
         for (int i = 0; i < vertex.length; i++) {
-            var linkedVertexList = findAllLinkedVertex(i);
-            var trianglePartsSet = findTriangleParts(linkedVertexList);
+            var linkedVertexList = findLinkedVertexIndexes(i);
+            var trianglePartsSet = findTriangleVertexIndexes(linkedVertexList);
             if (!trianglePartsSet.isEmpty()) {
                 weakVerticesSet.remove(i);
             }
@@ -221,7 +221,7 @@ class SimpleGraph {
         return weakVerticesSet.stream().map(i -> vertex[i]).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private List<Integer> findAllLinkedVertex(int index) {
+    private List<Integer> findLinkedVertexIndexes(int index) {
         var linkedVertexIndexList = new ArrayList<Integer>();
         for (int i = 0; i < vertex.length; i++) {
             if (m_adjacency[i][index] == 1 || m_adjacency[index][i] == 1) {
@@ -231,7 +231,7 @@ class SimpleGraph {
         return linkedVertexIndexList;
     }
 
-    private Set<Integer> findTriangleParts(List<Integer> candidates) {
+    private Set<Integer> findTriangleVertexIndexes(List<Integer> candidates) {
         var linkedCandidatesIndexes = new HashSet<Integer>();
         for (int i = 0; i < candidates.size(); i++) {
             for (int j = i; j < candidates.size(); j++) {
