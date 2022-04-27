@@ -1,0 +1,12 @@
+3.1:
+- https://raw.githubusercontent.com/eazytry/skillsmart/main/src/main/java/clear_code/FactoryMethodExample.java
+3.2:
+Интерфеймы:
+- Service
+- Client
+- Repository
+- OAuthManager
+Абстрыктные классы:
+- AbstractEntity
+- AbstractRepository
+e.t.c.
