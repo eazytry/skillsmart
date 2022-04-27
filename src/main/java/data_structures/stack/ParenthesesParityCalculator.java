@@ -1,5 +1,7 @@
 package data_structures.stack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class ParenthesesParityCalculator {
@@ -28,7 +30,6 @@ public class ParenthesesParityCalculator {
     }
 
     public static void main(String[] args) {
-        ParenthesesParityCalculator calculator = new ParenthesesParityCalculator("(()())(");
-        System.out.println(calculator.calculate());
+        System.out.println(Integer.parseInt("document_0/page_0".substring("document_0/page_0".lastIndexOf('_') + 1)));
     }
 }
