@@ -9,11 +9,13 @@ public class ArrayList<T> {
     public int capacity;
     public Class clazz;
 
+    private final static int INIT_ARR_SIZE = 16;
+
     public ArrayList(Class clz) {
         clazz = clz; // нужен для безопасного приведения типов
         count = 0;
-        makeArray(16);
-        capacity = 16;
+        makeArray(INIT_ARR_SIZE);
+        capacity = INIT_ARR_SIZE;
     }
 
     public void makeArray(int new_capacity) {

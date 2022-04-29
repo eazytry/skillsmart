@@ -1,6 +1,10 @@
+package data_structures.bloom_filter;
+
 public class BloomFilter {
     public int filter_len;
     public int bits;
+
+    private final static int SECOND_HASH_MULTIPLIER = 223;
 
     public BloomFilter(int f_len) {
         filter_len = f_len;
@@ -24,7 +28,7 @@ public class BloomFilter {
         // реализация ...
         int code = 0;
         for (int i = 0; i < str1.length(); i++) {
-            code = (code + str1.charAt(i)) * 223;
+            code = (code + str1.charAt(i)) * SECOND_HASH_MULTIPLIER;
         }
         return Math.abs(code) % filter_len;
     }

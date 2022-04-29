@@ -1,7 +1,5 @@
 package data_structures.array_based_tree;
 
-import java.util.*;
-
 class aBST {
     public Integer Tree[]; // массив ключей
 
@@ -24,13 +22,17 @@ class aBST {
                 return i;
             }
             if (key < Tree[i]) {
-                i = i * 2 + 1;
+                i = i * CHILD_MULTIPLIER + LEFT_CHILD_SUMMAND;
             } else {
-                i = i * 2 + 2;
+                i = i * CHILD_MULTIPLIER + LEFT_CHILD_SUMMAND;
             }
         }
         return null; // не найден
     }
+
+    private final static int CHILD_MULTIPLIER = 2;
+    private final static int LEFT_CHILD_SUMMAND = 1;
+    private final static int RIGHT_CHILD_SUMMAND = 2;
 
     public int AddKey(int key) {
         for (int i = 0; i < Tree.length; ) {
@@ -42,9 +44,9 @@ class aBST {
                 return i;
             }
             if (key < Tree[i]) {
-                i = i * 2 + 1;
+                i = i * CHILD_MULTIPLIER + LEFT_CHILD_SUMMAND;
             } else {
-                i = i * 2 + 2;
+                i = i * CHILD_MULTIPLIER + RIGHT_CHILD_SUMMAND;
             }
         }
         return -1;
