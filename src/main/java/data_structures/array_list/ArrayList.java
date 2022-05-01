@@ -63,7 +63,7 @@ public class ArrayList<T> {
         if (index < 0 || index > count) {
             throw new RuntimeException();
         }
-        if ((float) array.length / (count - 1) > 2f) {
+        if ((double) array.length / (count - 1) > 2d) {
             int newCapacity = (int) (capacity / 1.5f);
             makeArray(newCapacity);
         }

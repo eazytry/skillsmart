@@ -1,0 +1,34 @@
+1. nonNull(request.getIdentifiers()) && request.getIdentifiers().getFrontNum() > techDeclineConfig.getMaxRepeat()
+  -> isMoreThanMaxRepeat - вынес в boolean переменную сложное условие в if
+2. StringUtils.equals(p.getRole(), "1") || StringUtils.equals(p.getRole(), "3") -> isBorrowerOrCoborrower
+  - вынес в boolean переменную неочевидное условие
+3. clientIdentificationResponse != null && StringUtils.isNotBlank(clientIdentificationResponse.getBankPersonId())
+  -> isClientIdentificationResponseNull
+  - вынес в boolean переменную слишком длинное условие
+4. clientCategorizationResponse != null && StringUtils.isNotBlank(clientCategorizationResponse.getBankPersonId())
+  - вынес в boolean переменную слишком длинное условие
+5. (float) array.length / (count - 1) > 2f
+  -> (double) array.length / (count - 1) > 2d
+  - увеличил вещественные числа с одинарной точностью до вещественных чисел с двойной точностью
+6. m_adjacency[candidates.get(i)][candidates.get(j)] == 1
+                           || m_adjacency[candidates.get(j)][candidates.get(i)] == 1
+  -> isEdge
+  - вынес неочевидное условие в boolean переменную
+7. m_adjacency[i][index] == 1 || m_adjacency[index][i] == 1
+  -> isEdge
+  - вынес неочевидное условие в boolean переменную
+8. Arrays.stream(mrgChannels.split(",")).anyMatch(c -> c.trim().equalsIgnoreCase(channelId))
+  -> isNeedToSaveDocuments
+  - вынес неочевидное условие в boolean переменную
+9. "1".equals(existsFlag)
+  -> isConsentExists
+  - вынес неочевидное условие в boolean переменную
+10. TRUE.equals(application.getBorrower().getConsent()) && application.getBorrower().hasCorrectJob()
+  -> isBorrowerValid
+  - вынес неочевидное условие в boolean переменную
+11. CITYPE_PHONE_MOB.equalsIgnoreCase(type) || CITYPE_PHONE_HOME.equalsIgnoreCase(type))
+  -> isMobileOrHomeType
+  - вынес неочевидное условие в boolean переменную
+12. row.getExpdate() != null && row.getExpdate().compare(maxDate) > 0
+ -> isLaterThanMaxDate
+ - вынес неочевидное условие в boolean переменую

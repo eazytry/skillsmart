@@ -114,7 +114,8 @@ class SimpleGraph {
     private Integer searchLinkedNotHitVertexOrToIndex(int index, int toIndex) {
         HashSet<Integer> candidates = new HashSet<>();
         for (int i = 0; i < vertex.length; i++) {
-            if ((m_adjacency[i][index] > 0 || m_adjacency[index][i] > 0) && !vertex[i].Hit) {
+            boolean isEdge = m_adjacency[i][index] > 0 || m_adjacency[index][i] > 0;
+            if (isEdge && !vertex[i].Hit) {
                 candidates.add(i);
             }
         }
@@ -235,8 +236,9 @@ class SimpleGraph {
         var linkedCandidatesIndexes = new HashSet<Integer>();
         for (int i = 0; i < candidates.size(); i++) {
             for (int j = i; j < candidates.size(); j++) {
-                if (m_adjacency[candidates.get(i)][candidates.get(j)] == 1
-                        || m_adjacency[candidates.get(j)][candidates.get(i)] == 1) {
+                boolean isEdge = m_adjacency[candidates.get(i)][candidates.get(j)] == 1
+                        || m_adjacency[candidates.get(j)][candidates.get(i)] == 1;
+                if (isEdge) {
                     linkedCandidatesIndexes.add(candidates.get(i));
                     linkedCandidatesIndexes.add(candidates.get(j));
                 }
