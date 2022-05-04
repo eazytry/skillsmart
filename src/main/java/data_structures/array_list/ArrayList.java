@@ -9,6 +9,12 @@ public class ArrayList<T> {
     public int capacity;
     public Class clazz;
 
+    /* @ invariant array != null @ */
+    /* @ invariant count >= 0 @ */
+    /* @ invariant capacity >= 0 @ */
+    /* @ invariant clazz != null @ */
+
+
     private final static int INIT_ARR_SIZE = 16;
 
     public ArrayList(Class clz) {
@@ -54,6 +60,7 @@ public class ArrayList<T> {
             for (int i = 0; i < buffer.length; i++) {
                 array[index + 1 + i] = buffer[i];
             }
+            buffer = null;
             array[index] = itm;
             count++;
         }

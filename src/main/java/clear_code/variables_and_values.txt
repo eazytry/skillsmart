@@ -1,0 +1,50 @@
+1. Root = new BSTNode<>(key, val, null); -> для присвоения этой переменной использовался отдельный контейнер,
+ но так этот контейнер использовался только в это участке кода - я его упразднил
+2.  assert filter_len > 0;
+    -> добавил инвариант в фильтр блюма
+3.  index = -1;
+    -> добавил завершение работы с переменной в seek метод NativeCache
+4.  assert this.head != null;
+   -> добавил инвариант в метод addFront в Deque в случае не пустой очереди
+5.  assert this.tail != null;
+  -> добавил инвариант в метод addTail в Deque в случае не пустой очереди
+6. /*@
+   @requires v >= 0
+   @*/
+  -> добавил прекондишн в метод RemoveVertex на JML
+7.  /*@
+   @requires v1 >= 0
+   @requires v2 >= 0
+   @requires v1 <= max_vertex
+   @requires v2 <= max_vertex    @*/
+   -> добавил прекондишн в метод IsEdge (graph) на JML
+8. /*@ invariant max_vertex >= 0 @*/
+   /*@ invariant m_adjacency != null @*/
+   /*@ invariant vertex != null @*/
+   -> добавил инвариант в Vertex (graph) на DML
+9. /* @ invariant size >= 0 @ */
+   /* @ invariant slots != null @ */
+   /* @ invariant values != null @ */
+   -> добавил инвариант в NativeDictionary на  DML
+10.  /* @ invariant size >= 0 @ */
+     -> добавил инвариант в OrderedList на JML
+11.  /* @ invariant size >= 0 @ */
+     /* @ invariant values != null @ */
+     -> добавил инвариант в PowerSet на JML
+12.  /* @ invariant firstStack != null @ */
+     /* @ invariant secondStack != null @ */
+     /* @ invariant size >= 0 @ */
+     -> добавил инвариант в Queue
+13.  /* @ invariant count >= 0 @ */
+     -> добавил инвариант в Stack
+14.  /* @ invariant array != null @ */
+     /* @ invariant count >= 0 @ */
+     /* @ invariant capacity >= 0 @ */
+     /* @ invariant clazz != null @ */
+     -> добавил инваринты в ArrayList
+15.  buffer = null;
+     -> обнулил временную переменную после ее использования в методе insert в ArrayList
+
+
+
+

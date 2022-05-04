@@ -46,6 +46,9 @@ public class NativeCache<T> {
             currIndex = (currIndex + 1) < size ? currIndex + 1 : 0;
         } while (currIndex != index);
 
+        index = -1;
+        currIndex = -1;
+
         int minHitsIndex = 0;
 
         for (int i = 0; i < this.size; i++) {

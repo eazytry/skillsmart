@@ -7,6 +7,7 @@ public class BloomFilter {
     private final static int SECOND_HASH_MULTIPLIER = 223;
 
     public BloomFilter(int f_len) {
+        assert f_len > 0;
         filter_len = f_len;
         bits = 0;
         // создаём битовый массив длиной f_len ...
@@ -14,6 +15,7 @@ public class BloomFilter {
 
     // хэш-функции
     public int hash1(String str1) {
+        assert filter_len > 0;
         // 17
         int code = 0;
         for (int i = 0; i < str1.length(); i++) {
@@ -24,6 +26,8 @@ public class BloomFilter {
     }
 
     public int hash2(String str1) {
+        assert filter_len > 0;
+        assert str1 != null;
         // 223
         // реализация ...
         int code = 0;

@@ -9,6 +9,10 @@ class Heap {
         HeapArray = null;
     }
 
+    /*@
+    @requires a != null
+    @requires depth > 0
+    @*/
     public void MakeHeap(int[] a, int depth) {
         createEmptyArr(depth);
 
@@ -19,6 +23,7 @@ class Heap {
         // размер массива выбираем на основе глубины depth
         // ...
     }
+
 
     private void createEmptyArr(int depth) {
         this.HeapArray = new int[calcArrSize(depth)];

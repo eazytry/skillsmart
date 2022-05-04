@@ -5,6 +5,8 @@ public class Stack<T> {
     public Node<T> tail;
     public int count;
 
+    /* @ invariant count >= 0 @ */
+
     public Stack() {
         this.head = null;
         this.tail = null;

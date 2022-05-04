@@ -4,6 +4,7 @@ import java.util.*;
 
 public class AlgorithmsDataStructures2 {
     public static int[] GenerateBBSTArray(int[] a) {
+        assert a != null;
         Arrays.sort(a);
 
         int[] tree = new int[findArrSize(a.length)];

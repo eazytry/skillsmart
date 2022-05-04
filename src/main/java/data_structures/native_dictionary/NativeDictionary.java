@@ -4,12 +4,14 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
-
 public class NativeDictionary<T> {
     public int size;
     public volatile String[] slots;
     public volatile T[] values;
 
+    /* @ invariant size >= 0 @ */
+    /* @ invariant slots != null @ */
+    /* @ invariant values != null @ */
 
     public NativeDictionary(int sz, Class clazz) {
         size = sz;

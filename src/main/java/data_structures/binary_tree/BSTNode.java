@@ -77,9 +77,8 @@ class BST<T> {
         var found = FindNodeByKey(key);
 
         if (!found.NodeHasKey) {
-            var newNode = new BSTNode<>(key, val, null);
             if (found.Node == null) {
-                Root = newNode;
+                Root = new BSTNode<>(key, val, null);
             } else {
                 if (found.ToLeft)
                     found.Node.LeftChild = new BSTNode<>(key, val, found.Node);
@@ -89,7 +88,6 @@ class BST<T> {
             count++;
             return true;
         }
-
         return false; // если ключ уже есть
     }
 
@@ -172,6 +170,7 @@ class BST<T> {
     }
 
     private boolean isChildLeft(BSTNode<T> parent, BSTNode<T> child) {
+        assert parent != null;
         return parent.LeftChild == child;
     }
 
@@ -204,6 +203,7 @@ class BST<T> {
     }
 
     ArrayList<BSTNode> DeepAllNodes(final int order) {
+        assert order == 0 || order == 1 || order == 2;
         if (Root == null) {
             return new ArrayList<>();
         }
@@ -219,6 +219,7 @@ class BST<T> {
     }
 
     ArrayList<BSTNode> inOrder(BSTNode node) {
+        assert node != null;
         var list = new ArrayList<BSTNode>();
         if (node.LeftChild != null) {
             list.addAll(inOrder(node.LeftChild));
@@ -231,6 +232,7 @@ class BST<T> {
     }
 
     ArrayList<BSTNode> preOrder(BSTNode node) {
+        assert node != null;
         var list = new ArrayList<BSTNode>();
         list.add(node);
         if (node.LeftChild != null) {
@@ -243,6 +245,7 @@ class BST<T> {
     }
 
     ArrayList<BSTNode> postOrder(BSTNode node) {
+        assert node != null;
         var list = new ArrayList<BSTNode>();
         if (node.LeftChild != null) {
             list.addAll(postOrder(node.LeftChild));

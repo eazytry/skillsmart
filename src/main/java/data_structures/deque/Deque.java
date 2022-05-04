@@ -17,6 +17,7 @@ public class Deque<T> {
         if (size == 0)
             initDeque(node);
         else {
+            assert this.head != null;
             node.nextNode = this.head;
             this.head.prevNode = node;
             this.head = node;
@@ -30,6 +31,7 @@ public class Deque<T> {
         if (size == 0)
             initDeque(node);
         else {
+            assert this.tail != null;
             node.prevNode = this.tail;
             this.tail.nextNode = node;
             this.tail = node;

@@ -12,6 +12,9 @@ public class PowerSet {
     public int size;
     public String[] values;
 
+    /* @ invariant size >= 0 @ */
+    /* @ invariant values != null @ */
+
     public PowerSet() {
         initDefaultFields();
     }

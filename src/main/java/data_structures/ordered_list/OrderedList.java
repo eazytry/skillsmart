@@ -8,6 +8,9 @@ public class OrderedList<T> {
 
     private boolean _ascending;
     private int size;
+
+    /* @ invariant size >= 0 @ */
+
     public OrderedList(boolean asc) {
         head = null;
         tail = null;
