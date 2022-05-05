@@ -227,6 +227,7 @@ class SimpleGraph {
     public Set<Integer> findAllNotHitLinkedVertexIndexes(Integer index) {
         Set<Integer> notHitLinkedIndexSet = new HashSet<>();
         for (int i = 0; i < vertex.length; i++) {
+            // если есть ребро и вершина не посещена
             if ((m_adjacency[i][index] == 1 || m_adjacency[index][i] == 1) && !vertex[i].Hit) {
                 notHitLinkedIndexSet.add(i);
             }

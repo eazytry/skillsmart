@@ -16,6 +16,7 @@ class aBST {
     public Integer FindKeyIndex(int key) {
         for (int i = 0; i < Tree.length; ) {
             if (Tree[i] == null) {
+                // не нашли, но есть куда вставить
                 return Math.negateExact(i);
             }
             if (Tree[i] == key) {
@@ -27,6 +28,7 @@ class aBST {
                 i = i * CHILD_MULTIPLIER + LEFT_CHILD_SUMMAND;
             }
         }
+        // не нашли и дерево переполнено
         return null; // не найден
     }
 
@@ -40,6 +42,7 @@ class aBST {
                 Tree[i] = key;
                 return i;
             }
+            // если элемент уже был в дереве
             if (Tree[i] == key) {
                 return i;
             }
@@ -49,8 +52,8 @@ class aBST {
                 i = i * CHILD_MULTIPLIER + RIGHT_CHILD_SUMMAND;
             }
         }
+        // места нет
         return -1;
-        // индекс добавленного/существующего ключа или -1 если не удалось
     }
 
 }

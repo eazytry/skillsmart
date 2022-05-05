@@ -1,0 +1,38 @@
+3.1:
+1 - группировка зависимостей в pom файлах очень хорошо подкрепляется комментариями и легче читается
+2 - комментарии в yml и property файлах также иногда помогает понять специфические вещи
+3 - Метод поиска индекса ключа в aBST
+    // не нашли, но есть куда вставить
+    return Math.negateExact(i);
+4 - Метод поиска индекса ключа в aBST
+    // не нашли и дерево переполнено
+    return null;
+5 - Метод добавления ключа в aBST
+    // если элемент уже был в дереве
+    if (Tree[i] == key)
+6 - Метод добавления ключа в aBST
+    // места нет
+    return -1;
+
+7 - Метод добавления элемента в ArrayList
+    // если уперлись в границы массива - увеличиваем массив
+    if (count == array.length) {
+      makeArray(array.length * 2);
+    }
+3.2:
+1 - // Уточнение категории Payroll/Staff. - видно из названия метода
+2 - // send to the pre-scoring - видно из названия метода
+3 - //для циана должно приходить Максимальный срок кредитования 182 месяца - значение может измениться, а комментарий поправить забудут
+4 - //для циана должно приходить Максимальный запрашиваемый лимит 50 млн - значение может измениться, а комментарий поправить забудут
+5 - public void put(String value) {
+            // find null or equals value insert index
+            OptionalInt insertionIndexCandidateOpt = Arrays.stream(searchIndexSequence(value))
+                    .filter(i -> isNullOrEquals(value, values[i]))
+                    .limit(1L)
+                    .findFirst();
+            if (insertionIndexCandidateOpt.isPresent() && values[insertionIndexCandidateOpt.getAsInt()] == null) {
+                values[insertionIndexCandidateOpt.getAsInt()] = value;
+                size++;
+            }
+        }
+     - неочевидный комментарий сбивающий с толку

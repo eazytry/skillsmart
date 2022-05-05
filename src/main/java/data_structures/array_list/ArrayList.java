@@ -50,6 +50,7 @@ public class ArrayList<T> {
         if (index < 0 || index > count) {
             throw new RuntimeException();
         }
+        // если уперлись в границы массива - увеличиваем массив
         if (count == array.length) {
             makeArray(array.length * 2);
         }
