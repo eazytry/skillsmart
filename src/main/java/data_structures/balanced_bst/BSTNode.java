@@ -28,8 +28,6 @@ class BalancedBST {
         Arrays.sort(a);
 
         findNode(a, null, 0);
-        // создаём дерево с нуля из неотсортированного массива a
-        // ...
     }
 
     public BSTNode findNode(int[] a, BSTNode parent, int level) {

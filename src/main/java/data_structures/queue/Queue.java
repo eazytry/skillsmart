@@ -7,9 +7,11 @@ public class Queue<T> {
     private final Stack<T> secondStack;
     private int size;
 
-    /* @ invariant firstStack != null @ */
-    /* @ invariant secondStack != null @ */
-    /* @ invariant size >= 0 @ */
+    /*
+     @invariant firstStack != null
+     @invariant secondStack != null
+     @invariant size >= 0
+    */
 
     public Queue() {
         this.secondStack = new Stack<>();

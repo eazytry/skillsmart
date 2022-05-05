@@ -9,10 +9,10 @@ class Heap {
         HeapArray = null;
     }
 
-    /*@
-    @requires a != null
-    @requires depth > 0
-    @*/
+    /*
+     @requires a != null
+     @requires depth > 0
+    */
     public void MakeHeap(int[] a, int depth) {
         createEmptyArr(depth);
 
@@ -41,14 +41,20 @@ class Heap {
     }
 
     public int GetMax() {
-        int minIndex = findMinIndex();
-        if (minIndex < 0) {
+        int firstKeyIndex = findMinIndex();
+        if (firstKeyIndex < 0) {
             return -1; // если куча пуста
         }
         int root = HeapArray[0];
+        regenerateHeap(firstKeyIndex);
+        return root;
+        // вернуть значение корня и перестроить кучу
+    }
+
+    public void regenerateHeap(int firstKeyIndex) {
         int currIndex = 0;
-        HeapArray[0] = HeapArray[minIndex];
-        HeapArray[minIndex] = Math.negateExact(minIndex + 1);
+        HeapArray[0] = HeapArray[firstKeyIndex];
+        HeapArray[firstKeyIndex] = Math.negateExact(firstKeyIndex + 1);
         while(currIndex * 2 + 2 < HeapArray.length) {
             int switchCandidateIndex;
             var leftChildIndex = currIndex * 2 + 1;
@@ -65,8 +71,6 @@ class Heap {
             HeapArray[switchCandidateIndex] = tmp;
             currIndex = switchCandidateIndex;
         }
-        return root;
-        // вернуть значение корня и перестроить кучу
     }
 
     public int findMinIndex() {

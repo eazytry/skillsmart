@@ -19,9 +19,9 @@ class SimpleGraph {
     int[][] m_adjacency;
     int max_vertex;
 
-    /*@ invariant max_vertex >= 0 @*/
-    /*@ invariant m_adjacency != null @*/
-    /*@ invariant vertex != null @*/
+    /* @invariant max_vertex >= 0 */
+    /* @invariant m_adjacency != null */
+    /* @invariant vertex != null */
 
     public SimpleGraph(int size) {
         max_vertex = size;
@@ -41,9 +41,7 @@ class SimpleGraph {
         throw new IllegalStateException("Graph is full");
     }
 
-    /*@
-    @requires v >= 0
-    @*/
+    /* @requires v >= 0 */
     public void RemoveVertex(int v) {
         if (v >= max_vertex)
             throw new IllegalArgumentException("Index must be less than max_vertex index");
@@ -56,48 +54,51 @@ class SimpleGraph {
         // ваш код удаления вершины со всеми её рёбрами
     }
 
-    // в списке  vertex
-    /*@
-    @requires v1 >= 0
-    @requires v2 >= 0
-    @requires v1 <= max_vertex
-    @requires v2 <= max_vertex
-    @*/
+    /*
+     в списке  vertex
+    @
+     @requires v1 >= 0
+     @requires v2 >= 0
+     @requires v1 <= max_vertex
+     @requires v2 <= max_vertex
+     @
+    */
     public boolean IsEdge(int v1, int v2) {
         // true если есть ребро между вершинами v1 и v2
         return m_adjacency[v1][v2] == 1;
     }
 
-    /*@
-    @requires v1 >= 0
-    @requires v2 >= 0
-    @requires v1 <= max_vertex
-    @requires v2 <= max_vertex
-    @*/
+    /*
+     @requires v1 >= 0
+     @requires v2 >= 0
+     @requires v1 <= max_vertex
+     @requires v2 <= max_vertex
+     @
+    */
     public void AddEdge(int v1, int v2) {
         m_adjacency[v1][v2] = 1;
         m_adjacency[v2][v1] = 1;
         // добавление ребра между вершинами v1 и v2
     }
 
-    /*@
-    @requires v1 >= 0
-    @requires v2 >= 0
-    @requires v1 <= max_vertex
-    @requires v2 <= max_vertex
-    @*/
+    /*
+     @requires v1 >= 0
+     @requires v2 >= 0
+     @requires v1 <= max_vertex
+     @requires v2 <= max_vertex
+    */
     public void RemoveEdge(int v1, int v2) {
         m_adjacency[v2][v1] = 0;
         m_adjacency[v1][v2] = 0;
         // удаление ребра между вершинами v1 и v2
     }
 
-    /*@
-    @requires VFrom >= 0
-    @requires VTo >= 0
-    @requires VFrom <= max_vertex
-    @requires VTo <= max_vertex
-    @*/
+    /*
+     @requires VFrom >= 0
+     @requires VTo >= 0
+     @requires VFrom <= max_vertex
+     @requires VTo <= max_vertex
+    */
     public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
         if (VFrom >= vertex.length || VTo >= vertex.length) {
             return new ArrayList<>();
