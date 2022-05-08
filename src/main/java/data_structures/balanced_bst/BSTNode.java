@@ -35,7 +35,7 @@ class BalancedBST {
             return null;
         }
         var foundNodeIndex = a.length / 2;
-        BSTNode foundNode = new BSTNode(a[foundNodeIndex], parent);
+        var foundNode = new BSTNode(a[foundNodeIndex], parent);
         foundNode.Level = level;
         if (this.Root == null) {
             this.Root = foundNode;
@@ -58,7 +58,7 @@ class BalancedBST {
         if (root_node.LeftChild == null) {
             return root_node.RightChild.LeftChild == null && root_node.RightChild.RightChild == null;
         }
-        if (root_node.RightChild == null){
+        if (root_node.RightChild == null) {
             return root_node.LeftChild.LeftChild == null && root_node.LeftChild.RightChild == null;
         }
 

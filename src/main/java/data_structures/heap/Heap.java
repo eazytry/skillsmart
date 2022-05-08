@@ -24,7 +24,7 @@ class Heap {
         // ...
     }
 
-
+    // не предусматривает минусовой значение
     private void createEmptyArr(int depth) {
         this.HeapArray = new int[calcArrSize(depth)];
         for (int i = 0; i < HeapArray.length; i++) {
@@ -32,6 +32,7 @@ class Heap {
         }
     }
 
+    // не предусматривает проверок на минусовые значения
     private int calcArrSize(int depth) {
         int size = 0;
         for (int i = 0, j = 1; i <= depth; j = j * 2, i++) {
@@ -51,6 +52,7 @@ class Heap {
         // вернуть значение корня и перестроить кучу
     }
 
+    // Удалить корневой элемент и перестроить кучу, заменив его firstKeyIndex
     public void regenerateHeap(int firstKeyIndex) {
         int currIndex = 0;
         HeapArray[0] = HeapArray[firstKeyIndex];
@@ -90,6 +92,7 @@ class Heap {
         return false; // если куча вся заполнена
     }
 
+    // Не предусматривает минусовые значения
     private void Add(int key, int index) {
         HeapArray[index - 1] = key;
         int rootIndex = Math.max(index / 2 - 1, 0);

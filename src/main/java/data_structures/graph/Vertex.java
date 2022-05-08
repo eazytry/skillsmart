@@ -121,6 +121,7 @@ class SimpleGraph {
         Arrays.stream(vertex).forEach(v -> v.Hit = false);
     }
 
+    // Не проверяет stack на null и VTo на минусовые значения
     private Stack<Integer> DepthFirstSearch(Stack<Integer> stack, int VTo) {
         if (stack.isEmpty()) {
             return stack;
@@ -162,6 +163,7 @@ class SimpleGraph {
         if (VFrom == VTo && m_adjacency[VFrom][VTo] == 1) {
             return new ArrayList<>(List.of(vertex[VFrom], vertex[VTo]));
         }
+        // Метод clearHits здесь очень важен, без него все последующие поиски будут работать не корректно
         clearHits();
         var edges = findAllEdges(VTo, new LinkedList<>(List.of(VFrom)), new HashSet<>());
         var route = findRoute(VFrom, VTo, edges);
@@ -220,6 +222,7 @@ class SimpleGraph {
         return result;
     }
 
+    // Поиск ребра, которое ссылается на последний элемент с индексом finish
     private Edge findLastEdge(Integer finish, Set<Edge> edges) {
         return edges.stream().filter(e -> finish.equals(e.getToIndex())).findFirst().get();
     }
@@ -250,6 +253,7 @@ class SimpleGraph {
         return weakVerticesSet.stream().map(i -> vertex[i]).collect(Collectors.toCollection(ArrayList::new));
     }
 
+    // нет проверки на минусовые значения
     private List<Integer> findLinkedVertexIndexes(int index) {
         var linkedVertexIndexList = new ArrayList<Integer>();
         for (int i = 0; i < vertex.length; i++) {
@@ -260,6 +264,7 @@ class SimpleGraph {
         return linkedVertexIndexList;
     }
 
+    // Нельзя передавать null
     private Set<Integer> findTriangleVertexIndexes(List<Integer> candidates) {
         var linkedCandidatesIndexes = new HashSet<Integer>();
         for (int i = 0; i < candidates.size(); i++) {

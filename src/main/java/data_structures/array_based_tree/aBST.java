@@ -29,7 +29,7 @@ class aBST {
             }
         }
         // не нашли и дерево переполнено
-        return null; // не найден
+        return null;
     }
 
     private final static int CHILD_MULTIPLIER = 2;

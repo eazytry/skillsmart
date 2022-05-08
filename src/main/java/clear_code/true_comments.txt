@@ -1,0 +1,25 @@
+1. //TODO: refactor using Set
+  - в методе проверяли соответствия входящей строки путем if-блоков, но можно сделать с помощью Set константы (было бы нагляднее)
+2. // если есть ребро и вершина не посещена
+  - в Графе в методе поиска всех не посещенных связанных вершин перед длинным условием добавил для коммент
+3. // Поиск ребра, которое ссылается на последний элемент с индексом finish
+  - в Графе в методе поиска ребра, ссылающегося на последний элемент с индексом finish добавил комментарий
+4. // Удалить корневой элемент и перестроить кучу, заменив его firstKeyIndex
+  - в Heap добавил комментарий к методу regenerateHeap(int firstKeyIndex) тк из названия не понятно что он делает
+5. // не предусматривает проверок на минусовые значения
+  - private int calcArrSize(int depth) в Heap
+6. // TODO migrate RestTemplate to feign
+  - в целях продуктивности сделали как умеем, но в будущем надо обновить фреймворк
+7. // Не предусматривает минусовые значения
+   - private void Add(int key, int index) в Heap
+8. // не предусматривает минусовой значение
+   - private void createEmptyArr(int depth) - в Heap
+9. // Не проверяет stack на null и VTo на минусовые значения
+   - private Stack<Integer> DepthFirstSearch(Stack<Integer> stack, int VTo) - в Vertex
+10. // Метод clearHits здесь очень важен, без него все последующие поиски будут работать не корректно
+     clearHits();
+   - усиление в Graph
+11. // нет проверки на минусовые значения
+   - private List<Integer> findLinkedVertexIndexes(int index) - в Graph
+12. // Нельзя передавать null
+   - private Set<Integer> findTriangleVertexIndexes(List<Integer> candidates) - в Graph
