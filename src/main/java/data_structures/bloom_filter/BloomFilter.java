@@ -10,26 +10,21 @@ public class BloomFilter {
         assert f_len > 0;
         filter_len = f_len;
         bits = 0;
-        // создаём битовый массив длиной f_len ...
     }
 
     // хэш-функции
     public int hash1(String str1) {
         assert filter_len > 0;
-        // 17
         int code = 0;
         for (int i = 0; i < str1.length(); i++) {
              code = (code * 17) + str1.charAt(i);
         }
-        // реализация ...
         return Math.abs(code) % filter_len;
     }
 
     public int hash2(String str1) {
         assert filter_len > 0;
         assert str1 != null;
-        // 223
-        // реализация ...
         int code = 0;
         for (int i = 0; i < str1.length(); i++) {
             code = (code + str1.charAt(i)) * SECOND_HASH_MULTIPLIER;

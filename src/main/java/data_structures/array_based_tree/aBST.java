@@ -28,7 +28,7 @@ class aBST {
                 i = i * CHILD_MULTIPLIER + LEFT_CHILD_SUMMAND;
             }
         }
-        // не нашли и дерево переполнено
+        // В случае если дерево переполнено или элемент не найден возвращаем null
         return null;
     }
 
@@ -42,7 +42,6 @@ class aBST {
                 Tree[i] = key;
                 return i;
             }
-            // если элемент уже был в дереве
             if (Tree[i] == key) {
                 return i;
             }
@@ -52,7 +51,7 @@ class aBST {
                 i = i * CHILD_MULTIPLIER + RIGHT_CHILD_SUMMAND;
             }
         }
-        // места нет
+        // Если в массиве не оказалось места, то возвращаем -1
         return -1;
     }
 

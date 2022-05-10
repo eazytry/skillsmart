@@ -45,7 +45,6 @@ public class LinkedList2 {
                 nodes.add(curNode);
             curNode = curNode.next;
         }
-        // здесь будет ваш код поиска всех узлов по заданному значению
         return nodes;
     }
 

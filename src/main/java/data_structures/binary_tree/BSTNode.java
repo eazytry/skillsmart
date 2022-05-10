@@ -7,11 +7,11 @@ import java.util.List;
 
 
 class BSTNode<T> {
-    public int NodeKey; // ключ узла
-    public T NodeValue; // значение в узле
-    public BSTNode<T> Parent; // родитель или null для корня
-    public BSTNode<T> LeftChild; // левый потомок
-    public BSTNode<T> RightChild; // правый потомок	
+    public int NodeKey;
+    public T NodeValue;
+    public BSTNode<T> Parent;
+    public BSTNode<T> LeftChild;
+    public BSTNode<T> RightChild;
 
     public BSTNode(int key, T val, BSTNode<T> parent) {
         NodeKey = key;
@@ -22,15 +22,11 @@ class BSTNode<T> {
     }
 }
 
-// промежуточный результат поиска
 class BSTFind<T> {
-    // null если в дереве вообще нету узлов
     public BSTNode<T> Node;
 
-    // true если узел найден
     public boolean NodeHasKey;
 
-    // true, если родительскому узлу надо добавить новый левым
     public boolean ToLeft;
 
     public BSTFind() {
@@ -128,29 +124,28 @@ class BST<T> {
             var nodeToDelete = found.Node;
             BSTNode<T> candidate;
 
-            if (nodeToDelete.LeftChild == null || nodeToDelete.RightChild == null) {
-                if (nodeToDelete.LeftChild == null && nodeToDelete.RightChild == null)
-                    candidate = null;
-                else
-                    candidate = nodeToDelete.LeftChild == null ? nodeToDelete.RightChild : nodeToDelete.LeftChild;
-            } else {
-                // случай когда у удаляемого узла есть два потомка
+            if (nodeToDelete.LeftChild != null && nodeToDelete.RightChild != null) {
                 candidate = findMin(nodeToDelete.RightChild);
                 // Если у кандидата есть правый узел - заменяем кандидата на его правый узел
                 if (candidate.RightChild != null) {
                     candidate.RightChild.Parent = candidate.Parent;
                 }
-                // если у кандидата есть правые узел - присваиваем его в левого потомка родителя удаляемого узла
+                // Если у кандидата есть правые узел - присваиваем его в левого потомка родителя удаляемого узла
                 candidate.Parent.LeftChild = candidate.RightChild;
-                // Заменяем потомков кандидата на потомков удаляемого узла
+
                 candidate.LeftChild = nodeToDelete.LeftChild;
                 candidate.RightChild = nodeToDelete.RightChild;
             }
-            // Если удаляем корень = заменяем ссылку в дереве на корень
+            else {
+                candidate = nodeToDelete.LeftChild == null && nodeToDelete.RightChild == null
+                        ? null
+                        : nodeToDelete.LeftChild == null
+                        ? nodeToDelete.RightChild
+                        : nodeToDelete.LeftChild;
+            }
             if (nodeToDelete == Root) {
                 Root = candidate;
             }
-            // Если удаляем не корень, то заменяем потомка родителя удаляемого узла на кандидата
             if (nodeToDelete.Parent != null) {
                 if (isChildLeft(nodeToDelete.Parent, nodeToDelete)) {
                     nodeToDelete.Parent.LeftChild = candidate;
@@ -159,14 +154,12 @@ class BST<T> {
                 }
             }
             if (candidate != null) {
-                // Заменяем родителя кандидата на родителя удаляемого узла
                 candidate.Parent = nodeToDelete.Parent;
             }
             count--;
             return true;
-        } else {
-            return false; // если узел не найден
         }
+        return false; // если узел не найден
     }
 
     private boolean isChildLeft(BSTNode<T> parent, BSTNode<T> child) {

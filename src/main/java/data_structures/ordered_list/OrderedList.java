@@ -43,8 +43,6 @@ public class OrderedList<T> {
                     break;
             }
         }
-        // автоматическая вставка value
-        // в нужную позицию
     }
 
     private void addToRange(T value) {

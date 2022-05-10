@@ -4,9 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class SimpleTreeNode<T> {
-    public T NodeValue; // значение в узле
-    public SimpleTreeNode<T> Parent; // родитель или null для корня
-    public List<SimpleTreeNode<T>> Children; // список дочерних узлов или null
+    public T NodeValue;
+    public SimpleTreeNode<T> Parent;
+    public List<SimpleTreeNode<T>> Children;
 
     public SimpleTreeNode(T val, SimpleTreeNode<T> parent) {
         NodeValue = val;
@@ -16,8 +16,8 @@ public class SimpleTreeNode<T> {
 }
 
 class SimpleTree<T> {
-    public SimpleTreeNode<T> root; // корень, может быть null
-
+    public SimpleTreeNode<T> root;
+    // Root не может быть NULL
     public SimpleTree(SimpleTreeNode<T> root) {
         this.root = root;
     }

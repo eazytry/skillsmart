@@ -106,10 +106,6 @@ public class LinkedList {
                 _nodeToInsert.next = node;
             }
         }
-        // здесь будет ваш код вставки узла после заданного
-
-        // если _nodeAfter = null ,
-        // добавьте новый элемент первым в списке
     }
 }
 
