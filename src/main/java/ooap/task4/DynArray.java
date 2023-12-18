@@ -1,17 +1,34 @@
 package ooap.task4;
+
 public interface DynArray<T> {
     // Запросы
 
+    // Предусловие: индекс лежит в допустимых пределах массива
     // Постусловие: возвращен эллемент под переданным индексом или его отсутствие
     T getItem(int index);
 
     // Постусловие: возвращен текущий размер листа
     int getSize();
-    InsertStatus getLastInsertStatus();
-    RemoveStatus getLastRemoveStatus();
 
-    enum RemoveStatus { LESS_THAN_ZERO, MORE_THAN_LIST_SIZE, SUCCESS, LIST_EMPTY }
-    enum InsertStatus { LESS_THAN_ZERO, MORE_THAN_LIST_SIZE, SUCCESS, LIST_EMPTY }
+    PutStatus getPutStatus();
+
+    GetStatus getGetStatus();
+
+    RemoveStatus getRemoveStatus();
+
+    PutRightStatus getPutLeftStatus();
+
+    PutLeftStatus getPutRightStatus();
+
+    enum RemoveStatus {OUT_OF_BOUND, SUCCESS, LIST_EMPTY}
+
+    enum PutStatus {OUT_OF_BOUND, SUCCESS, LIST_EMPTY}
+
+    enum PutLeftStatus {OUT_OF_BOUND, SUCCESS, LIST_EMPTY}
+
+    enum PutRightStatus {OUT_OF_BOUND, SUCCESS, LIST_EMPTY}
+
+    enum GetStatus {OUT_OF_BOUND, SUCCESS}
 
 
     // Команды
@@ -19,11 +36,19 @@ public interface DynArray<T> {
     // Постусловие: добавлен переданный элемент
     void append(T item);
 
-    // Предусловие: $index должен быть не меньше нуля и не больше текущего размера листа. Лист не должен быть пустой.
+    // Предусловие: $index в пределах массива. Лист не должен быть пустой.
     // Постусловие: втсавлен $item на место элемента под индексом $index
-    void insert(T item, int index);
+    void put(T item, int index);
 
-    // Предусловие: $index должен быть не меньше нуля и не больше текущего размера листа. Лист не должен быть пустой.
+    // Предусловие: $index в пределах массива. Лист не должен быть пустой.
+    // Постусловие: втсавлен $item на место элемента под индексом $index
+    void putLeft(T item, int index);
+
+    // Предусловие: $index в пределах массива. Лист не должен быть пустой.
+    // Постусловие: втсавлен $item на место элемента под индексом $index
+    void putRight(T item, int index);
+
+    // Предусловие: $index в пределах массива. Лист не должен быть пустой.
     // Постусловие: удален элемент под индексом $index
     void remove(int index);
 
