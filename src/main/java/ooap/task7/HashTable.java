@@ -1,6 +1,6 @@
 package ooap.task7;
 
-public interface HashTable<K,V> {
+public interface HashTable<K, V> {
     // Команды
 
     // Постусловия: добавлен новый элемент в таблицу
@@ -14,6 +14,9 @@ public interface HashTable<K,V> {
     // Постусловия: возвращен текущий размер таблицы
     int size();
 
+    // Постусловия: удален элемент с ключем k
+    void remove(K k);
+
     // Постусловия: true если такой ключ уже есть в таблице, иначе false
     boolean containsKey(K k);
 
@@ -21,9 +24,11 @@ public interface HashTable<K,V> {
 
     GetStatus getGetStatus();
 
-    enum PutStatus { INITIAL, OVERRIDE, SUCCESS }
+    RemoveStatus getRemoveStatus();
 
-    enum GetStatus { INITIAL, NOT_EXIST, SUCCESS}
+    enum PutStatus {INITIAL, OVERRIDE, SUCCESS}
 
+    enum GetStatus {INITIAL, NOT_EXIST, SUCCESS}
 
+    enum RemoveStatus {INITIAL, NOT_EXIST, SUCCESS}
 }
