@@ -1,0 +1,104 @@
+Полностью изучить концепции всех разновидностей fazz фреймворков мне не удалось, но я однозначно посвящу этому еще какое-то время.
+Я использовал Jazzer, так как все мои проекты на языке Java. Сначала я попробовал организовать fazz тест для метода размером около 50 строк, но быстро понял что для ознакомления это слишком тяжело при отсутствии понимания "как работать" с этим фреймворком. Хочу отметить что количество статей, да и количество документации - катастрофически мало, поэтому приходилось догадываться как настроить фреймворк для работы.
+Тестировал я следущую функцию:
+
+List<Transaction> toTransactions(Operation operation, TransactionEntity sourceEntity) {
+        var targetTransactions = ofNullable(operation)
+                .map(Operation::getTransactions)
+                .map(ArrayList::new)
+                .orElseGet(ArrayList::new);
+        ofNullable(sourceEntity)
+                .map(TransactionEntity::getTransactionId)
+                .stream()
+                .flatMap(List::stream)
+                .forEach(id -> targetTransactions.add(new Transaction(sourceEntity.getSource(), id)));
+        return targetTransactions;
+    }
+
+Обычно я пишу параметризирвоанные тесты, чем-то похоже на то что делает fazz тестирование (я перебираю все инварианты), но, разумеется с человеческим фактором (а кто его отменял).
+Мне довольно повезло, так как чтобы из моего JUnit параметризованного теста сделать Fuzz тест было довольно легко - надо было всего-лишь поменять одну аннотацию (так я подумал сначала). Так выглядел тест моей первой попытки:
+
+    @FuzzTest
+    @MethodSource("toTransactionsArgsProvider")
+    void toTransactionsTest(String testName, List<String> sourceTransactionIds, List<Transaction> targetTransactions) {
+        final var transactionEntity = new TransactionEntity();
+        transactionEntity.setTransactionId(sourceTransactionIds);
+        transactionEntity.setSource("source");
+        final var operation = new Operation();
+        operation.setTransactions(targetTransactions);
+
+        var actual = operationEnricher.toTransactions(operation, transactionEntity);
+
+        Assertions.assertNotNull(actual);
+        Stream.ofNullable(sourceTransactionIds).flatMap(List::stream).forEach(
+                sourceTransactionId -> Assertions.assertTrue(
+                        actual.contains(new Transaction("source", sourceTransactionId)))
+        );
+        Assertions.assertTrue(actual.containsAll(ofNullable(targetTransactions).orElse(Collections.emptyList())));
+    }
+
+    private static Stream<Arguments> toTransactionsArgsProvider() {
+        return Stream.of(
+                Arguments.of(
+                        "1 source 1 target",
+                        List.of("123"),
+                        List.of(new Transaction("321", "333"))),
+                Arguments.of(
+                        "2 source 1 target",
+                        List.of("123", "111"),
+                        List.of(new Transaction("321", "333"))),
+                Arguments.of(
+                        "1 source 2 target",
+                        List.of("123"),
+                        List.of(new Transaction("321", "333"),
+                                new Transaction("444", "555"))),
+                Arguments.of(
+                        "1 source null target",
+                        List.of("123"),
+                        null),
+                Arguments.of(
+                        "null source 1 target",
+                        null,
+                        List.of(new Transaction("321", "333")))
+        );
+    }
+
+Однако попытке не увенчалась успехом, и, как я понял - фреймворк не умеет работать с кастомными дата классами.
+Затем я выпилил кастомные дата классы и заменил их на core классы из пакета Java, но и тут меня ждала неудача - как я понял, jazzer перебирает все варианты, абсолютно все и он каким-то образом сломал метод, однако его report файл оказался простым byte кодом. На ход ноги я не смог разобраться как его прочитать (как понять что и куда он подставил), поэтому я передумал использовать параметризированные тесты (он их использовал, как я понял, для первоначальной настройки) и позволил ему гененировать что он хочет и как он хочет.
+Хочу отдельно отметить что баг-таки он нашел (в стримах я не учел что объект в list может быть null), за что ему отдельное спасибо.
+Итоговый вид теста:
+
+    @FuzzTest
+    void toTransactionsTest(FuzzedDataProvider fuzzedDataProvider) {
+        var targetTransactionsCount = fuzzedDataProvider.consumeInt(0, 100);
+        var sourceTransactionIdsCount = fuzzedDataProvider.consumeInt(0, 100);
+        var sourceString = fuzzedDataProvider.consumeRemainingAsString();
+
+        var sourceTransactionIds = Stream.iterate(0, n -> n < sourceTransactionIdsCount, n -> n + 1)
+                .map(_ -> fuzzedDataProvider.consumeRemainingAsString())
+                .toList();
+        var targetTransactions = Stream.iterate(0, n -> n < targetTransactionsCount, n -> n + 1)
+                .map(_ -> new Transaction(fuzzedDataProvider.consumeRemainingAsString(), fuzzedDataProvider.consumeRemainingAsString()))
+                .toList();
+
+        final var enrichmentTransaction = new TransactionEntity();
+        enrichmentTransaction.setTransactionId(sourceTransactionIds);
+        enrichmentTransaction.setSource(sourceString);
+
+        final var operation = new Operation();
+        operation.setTransactions(targetTransactions);
+
+        var actual = operationEnricher.toTransactions(operation, enrichmentTransaction);
+
+        Assertions.assertNotNull(actual);
+        Stream.ofNullable(sourceTransactionIds).flatMap(List::stream).forEach(
+                sourceTransactionId -> Assertions.assertTrue(
+                        actual.contains(new Transaction(sourceString, sourceTransactionId)))
+        );
+        Assertions.assertTrue(actual.containsAll(targetTransactions));
+    }
+
+После правок - тесты прошли успешно, мой компьютер немного попыхтел (32ГБ озу в моменте он кушал), но справился (можно настроить максимальную утилизацию ресурсов, но я не стал заморачиваться ибо железо позволяет).
+
+Вывод:
+Фреймворк очень интересный для изучения, но довольно сложный. Чтобы его основательно понять, как мне кажется, надо сперва основательно разобраться с разными концепциями реализации фазз-тестирования. Отдельно хочется отметить что организация теста даже небольшой функции требует немало затрат для написания input data. Поэтому при плохо декомпозированном коде читаемость таких тестов становится ниже плинтуса.
