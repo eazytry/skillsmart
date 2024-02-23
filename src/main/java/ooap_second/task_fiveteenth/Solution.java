@@ -6,7 +6,6 @@ public class Solution {
         abstract boolean score();
         // получить данные по доходам в формате json
         String getIncomeData() {
-            // Допустим тут идем в ESIA по ФИО/паспортным данны и получаем (общая реализация
             return null;
         }
     }
