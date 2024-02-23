@@ -1,103 +1,119 @@
 package ooap_second.task_fourteenth;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-
-import static java.math.BigDecimal.ONE;
-import static java.math.BigDecimal.TEN;
-import static java.math.BigDecimal.ZERO;
-
+// Не сразу понял что имелось ввиду в задании
 public class Solution {
-    static abstract class General {
-        // Стандартная реализация сложения хешкодов.
-        public abstract General add(General general);
+    public static class Any {}
 
-        <T> Optional<T> tryCast(Class<T> targetClass) {
-            if (targetClass != null && targetClass.isAssignableFrom(this.getClass())) {
-                return Optional.of((T)this);
+    public static class Adder<T> extends Any {
+
+        public T sum(T first, T second){
+
+            T ans = null;
+
+            if(first instanceof String){
+                ans = sumString(first, second);
             }
-            return Optional.empty();
+
+            if(first instanceof Integer){
+                ans = sumInteger(first, second);
+            }
+
+            if (first instanceof Double){
+                ans = sumDouble(first, second);
+            }
+
+            return ans;
+        }
+
+        private T sumString(T first, T second){
+            return (T)(first + (String)second);
+        }
+
+        private T sumInteger(T first, T second){
+            Integer sum = (Integer)first + (Integer)second;
+            T value = (T)sum;
+            return value;
+        }
+
+        private T sumDouble(T first, T second){
+            return (T)((Double)((Double)(first) + (Double)second));
         }
     }
 
-    static class Vector<T extends General> extends General {
-        private List<General> vector;
+    public static class Vector<T> extends Adder<T> {
 
-        public Vector(List<T> list) {
-            this.vector = (List<General>) list;
+        public static int ADD_NIL = 0;
+        public static int ADD_OK = 1;
+        public static int ADD_ERR = 2;
+
+        private int length;
+        private T[] arr;
+        private int add_status;
+
+        public Vector(T[] arr){
+            this.arr = arr;
+            length = arr.length;
+            add_status = ADD_NIL;
         }
 
-        @Override
-        public General add(General general) {
-            var vectorOpt = general.tryCast(this.getClass());
-            if (vectorOpt.isEmpty() || vectorOpt.get().getVector().size() != this.vector.size()) {
-                return null;
+        public Vector(int length){
+            arr = (T[])new Object[length];
+            this.length = length;
+            add_status = ADD_NIL;
+        }
+
+        public void add(Vector<? extends T> v){
+            Vector<String> temp = new Vector<>(1);
+            if (v.getLength() == length){
+                T[] arr2 = v.getArr();
+
+                for (int i = 0; i < length; i++){
+                    if(arr2[i].getClass().isInstance(temp)){
+                        // проверяем типы. Если это Vector, то:
+                        ((Vector<T>)arr[i]).add(((Vector<T>)arr2[i]));
+                    }
+                    else { // иначе - это Number или String
+                        add_v((Vector<T>) v);
+                        add_status = ADD_OK;
+                        break;
+                    }
+                }
+
+                add_status = ADD_OK;
             }
-            var targetVector = vectorOpt.get().getVector();
-            for (int i = 0; i < targetVector.size(); i++) {
-                var value = (General) targetVector.get(i);
-                this.vector.set(i, this.vector.get(i).add(value));
+            else{
+                add_status = ADD_ERR;
             }
-
-            return this;
         }
 
-        public List<? extends General> getVector() {
-            return vector;
+        private void add_v(Vector<T> v){
+            T[] arr2 = v.getArr();
+            for(int i = 0; i < length; i++){
+                arr[i] = (T) sum(arr[i], arr2[i]);
+            }
         }
 
-        @Override
-        public String toString() {
-            return "Vector{" +
-                    "vector=" + vector +
-                    '}';
-        }
-    }
+        public static Vector addVectors(Vector v1, Vector v2) throws CloneNotSupportedException {
+            Vector ans = (Vector)v1.clone();
 
-    static class Number extends General {
-        private BigDecimal number;
+            ans.add(v2);
 
-        public Number(BigDecimal number) {
-            this.number = number;
+            return ans;
         }
 
-        @Override
-        public General add(General general) {
-            var numberOpt = general.tryCast(this.getClass());
-            return numberOpt
-                    .map(t -> new Number(number.add(t.getNumber())))
-                    .orElse(null);
+        public int getLength(){
+            return length;
         }
 
-        public BigDecimal getNumber() {
-            return number;
+        public int get_add_status(){
+            return add_status;
         }
 
-        @Override
-        public String toString() {
-            return "Number{" +
-                    "number=" + number +
-                    '}';
+        public T[] getArr(){
+            return arr;
         }
     }
 
     public static void main(String[] args) {
-        var nums1 = new Vector<>(new ArrayList<>(List.of(new Number(ONE), new Number(TEN), new Number(ONE))));
-        var nums2 = new Vector<>(new ArrayList<>(List.of(new Number(ZERO), new Number(ONE), new Number(ONE))));
-        var nums3 = new Vector<>(new ArrayList<>(List.of(new Number(ZERO), new Number(ZERO), new Number(TEN))));
-
-        var vecs1 = new Vector<>(new ArrayList<>(List.of(nums1, nums2)));
-        var vecs2 = new Vector<>(new ArrayList<>(List.of(nums3, nums1)));
-
-
-        var vecsVecs1 = new Vector<>(new ArrayList<>(List.of(vecs1)));
-        var vecsVecs2 = new Vector<>(new ArrayList<>(List.of(vecs2)));
-
-        var sum = vecsVecs1.add(vecsVecs2);
-
-        System.out.println(sum);
     }
 }
