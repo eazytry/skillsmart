@@ -20,6 +20,9 @@ JsonNode requestData(DataRequest request)
 DataResponse deserializeResponse(JsonNode responseNode)
 List<ConstraintViolation> validate(DataResponse response)
 
+// По сути этот метод мы и будем вызывать на клиенте, остальные методы больше служебные
+DataResponse sendRequest(String var, String var2)
+
 Тесты пишутся на каждый метод, проверяя корректность работы, пограничные случаи итд
 С точки зрения tdd все сделано правильно, но как бы не так.
 Если рассматривать клиент с т.з. дизайна, то класс будет выглядить примерно так:
