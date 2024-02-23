@@ -10,19 +10,6 @@ import sun.reflect.ReflectionFactory;
 public class Solution {
     abstract class General implements Serializable {
 
-        protected Object deepClone() throws CloneNotSupportedException, InstantiationException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-            var rf = ReflectionFactory.getReflectionFactory();
-
-            var declaredConstructor = this.getClass().getDeclaredConstructor();
-            var o = rf.newInstanceForSerialization(declaredConstructor, new ProtectionDomain[0]);
-            for (Field field : this.getClass().getDeclaredFields()) {
-                field.setAccessible(true);
-                field.set(o, field.get(this));
-            }
-
-            return o;
-        }
-
         public void copyTo(General target) throws NoSuchFieldException, IllegalAccessException {
             if (target == null || !this.getClass().equals(target.getClass())) {
                 return;
